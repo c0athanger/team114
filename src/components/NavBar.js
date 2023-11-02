@@ -23,9 +23,9 @@ const NavBar = () => {
 			<nav>
 				<ul className="nav_links">
 					<li><Link to="/">Users</Link></li>
-					<li><Link to="/">Exercises</Link></li>
-					<li><Link to="/">Workouts</Link></li>
-					<li><Link to="/">About</Link></li>
+					<li><Link to="/Exercises">Exercises</Link></li>
+					<li><Link to="/Workouts">Workouts</Link></li>
+					<li><Link to="/About">About</Link></li>
 				</ul>
 			</nav>
 		</header>
