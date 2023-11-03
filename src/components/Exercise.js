@@ -1,11 +1,15 @@
 import React from 'react'
 
-const Exercise = ({ Title, txt }) => {
+const Exercise = ({ exercise, setIsUpdate }) => {
 	return (
-		<tr>
-			<td>{Title}</td>
-			<td>{txt}</td>
-		</tr>
+		<div>
+			<p>{exercise.name}</p>
+			<p>{exercise.description}</p>
+			{exercise.bodyparts.map((bodypart, i) => (
+				<p>{bodypart}</p>
+			))}
+			<button onClick={() => { setIsUpdate(0) }}>Return to exercises table</button>
+		</div>
 	)
 }
 

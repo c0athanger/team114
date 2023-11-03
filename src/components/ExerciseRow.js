@@ -3,10 +3,10 @@ import React from 'react'
 const ExerciseRow = ({ exercise }) => {
 	return (
 		<tr>
-			<Td>{exercise.name}</Td>
-			<Td>{exercise.sets}</Td>
-			<Td>{exercise.reps}</Td>
-			<Td>{exercise.internsity}</Td>
+			<td>{exercise.name}</td>
+			<td>{exercise.sets}</td>
+			<td>{exercise.reps}</td>
+			<td>{exercise.intensity}</td>
 		</tr>
 	)
 }

@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router';
+import AddBodypart from './AddBodypart';
 
 
-const newExercise = ({ exercise = { name: 'Put name Here', description: 'Put description here', bodyparts: ['body part name'] } }) => {
+const NewExercise = ({ exercise, setIsUpdate }) => {
 	const [name, setName] = useState(exercise.name);
 	const [description, setDescription] = useState(exercise.description);
 	const [bodyparts, setBodyparts] = useState(exercise.bodyparts);
 
-	const nav = useNavigate();
 
 	const setBodyPartInd = (val, i) => {
 		const new_bodyparts = [...bodyparts];
@@ -22,7 +21,7 @@ const newExercise = ({ exercise = { name: 'Put name Here', description: 'Put des
 
 	const EditExercise = (e) => {
 		e.preventDefault();
-		nav('/Exercises')
+		setIsUpdate(false)
 	}
 
 	return (
@@ -52,7 +51,7 @@ const newExercise = ({ exercise = { name: 'Put name Here', description: 'Put des
 							</label>
 						</td>
 						<td><button onClick={pushBodyPart}>Add bodypart</button></td>
-						{bodyparts.map((bodypart, index) => <addBodyPart name={bodypart[index]} setBodyPartInd={setBodyPartInd} index={index} />)}
+						{bodyparts.map((bodypart, index) => <AddBodypart name={bodypart} setBodyPartInd={setBodyPartInd} index={index} />)}
 						<td><button onClick={EditExercise}>Save</button></td>
 					</tr>
 				</tbody>
@@ -61,4 +60,4 @@ const newExercise = ({ exercise = { name: 'Put name Here', description: 'Put des
 	)
 }
 
-export default newExercise
+export default NewExercise

@@ -1,14 +1,14 @@
 import React from 'react';
 import ExerciseRow from "./ExerciseRow"
 
-const Workout = ({ Name, Description, Exercises }) => {
+const Workout = ({ workout, setIsUpdate }) => {
 	return (
 		<div className="WorkoutPage">
 			<h1>
-				{Name}
+				{workout.name}
 			</h1>
 			<p>
-				{Description}
+				{workout.description}
 			</p>
 			<table id="workoutExercises">
 				<caption>Workout regime</caption>
@@ -22,9 +22,10 @@ const Workout = ({ Name, Description, Exercises }) => {
 				</thead>
 
 				<tbody>
-					{Exercises.map((exercise, k) => <ExerciseRow exercise={exercise} key={k} />)}
+					{workout.exercises.map((exercise, k) => <ExerciseRow exercise={exercise} key={k} />)}
 				</tbody>
 			</table>
+			<button onClick={() => { setIsUpdate(0) }}>Return to workouts table</button>
 
 		</div>
 	)

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const addBodypart = ({ name, setBodyPartInd, index }) => {
+const AddBodypart = ({ name, setBodyPartInd, index }) => {
 	return (
 		<td>
 			<label for={name} className="required">
@@ -11,4 +11,4 @@ const addBodypart = ({ name, setBodyPartInd, index }) => {
 	)
 }
 
-export default addBodypart
+export default AddBodypart
