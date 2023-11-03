@@ -8,7 +8,7 @@ const Exercises = () => {
 
 	]
 	return (
-		<div>Exercises</div>
+		<div>Exercises {exercises_query[0].Name}</div>
 	)
 }
 

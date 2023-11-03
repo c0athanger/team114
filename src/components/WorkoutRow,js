@@ -1,0 +1,12 @@
+
+import React from 'react'
+
+const WorkoutRow = ({ workout }) => {
+	return (
+		<tr>
+			<Td>{workout.name}</Td>
+		</tr>
+	)
+}
+
+export default WorkoutRow
