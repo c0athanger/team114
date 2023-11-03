@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
 
-const AddBodypart = ({ ex, pushExercise }) => {
+const AddExercise = ({ ex, pushExercise }) => {
 	const [name, setName] = useState(ex.name);
 	const [sets, setSets] = useState(ex.sets);
 	const [reps, setReps] = useState(ex.reps);
@@ -45,4 +45,4 @@ const AddBodypart = ({ ex, pushExercise }) => {
 	)
 }
 
-export default AddBodypart
+export default AddExercise

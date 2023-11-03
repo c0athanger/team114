@@ -12,11 +12,6 @@ const NewWorkout = ({ workout, setIsUpdate }) => {
 
 	const nav = useNavigate();
 
-	const setExerciseInd = (val, i) => {
-		const new_exercises = [...exercises];
-		new_exercises[i] = val;
-		setExercises(new_exercises);
-	}
 
 	const pushExercise = (name, sets, reps, intensity) => {
 		setExercises([...exercises, { name: 'Put exercise here', sets: 0, reps: 0, intensity: 0 }]);

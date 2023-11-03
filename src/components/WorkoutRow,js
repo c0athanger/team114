@@ -4,7 +4,7 @@ import React from 'react'
 const WorkoutRow = ({ workout }) => {
 	return (
 		<tr>
-			<Td>{workout.name}</Td>
+			<td>{workout.name}</td>
 		</tr>
 	)
 }
