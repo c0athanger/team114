@@ -23,8 +23,8 @@ const User = ({ user, setIsUpdate }) => {
 			<p>
 				{user.password}
 			</p>
+			<h2> Subscribed workouts </h2>
 			<table id="userWorkouts">
-				<caption>Subscribed workouts</caption>
 				<thead>
 					<tr>
 						<th>Workout name</th>
