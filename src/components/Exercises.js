@@ -13,7 +13,9 @@ const Exercises = () => {
 	const def_ex = { name: 'Put name Here', description: 'Put description here', bodyparts: ['body part name'] }
 
 	const [isUpdate, setIsUpdate] = useState(0);
+	const [search, setSearch] = useState('');
 	const [exDefault, setExDefault] = useState(def_ex);
+	const name_space = "name:  "
 
 	const editExercises = (i) => {
 		setExDefault(exercises_query[i])
@@ -35,7 +37,11 @@ const Exercises = () => {
 					<table>
 						<thead>
 							<tr>
-								<th>Name</th>
+								<th>{name_space}
+									<label for="idsearch" >
+										<input type="text" id="idsearch" placeholder="Enter exercise name here" value={search} onChange={e => setSearch(e.target.value)}></input>
+									</label>
+								</th>
 								<th>Description</th>
 								<th>Actions</th>
 							</tr>

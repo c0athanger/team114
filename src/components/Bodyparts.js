@@ -23,13 +23,13 @@ const Bodyparts = () => {
 	return (
 		<>
 			{!isUpdate
-				? <>
-					<button onClick={addEx}>Create New Bodypart</button>
+				? <div>
+					<button onClick={addEx}>Create</button>
 					<table>
 						<thead>
 							<tr>
 								<th>Name</th>
-								<th>ACtions</th>
+								<th>Actions</th>
 
 							</tr>
 						</thead>
@@ -37,7 +37,7 @@ const Bodyparts = () => {
 							{bodyparts_query.map((bodypart, k) => (<tr><td> {bodypart} </td><td><button onClick={() => { editBodyparts(k) }}>Edit</button><button>Delete</button></td></tr>))}
 						</tbody>
 					</table>
-				</>
+				</div>
 				:
 				<>
 					<NewBodypart bodypart={exDefault} setIsUpdate={setIsUpdate} />

@@ -1,18 +1,27 @@
 import React from 'react'
-import WorkoutRow from './WorkoutRow,js'
 
 
 const User = ({ user, setIsUpdate }) => {
+	console.log(user.workouts);
 	return (
 		<div className="UserPage">
-			<h1>
-				{user.name}
-			</h1>
+			<h2>
+				Username
+			</h2>
 			<p>
-				Email: {user.email}
+				{user.username}
 			</p>
+			<h2>
+				Email
+			</h2>
 			<p>
-				Password: {user.password}
+				{user.email}
+			</p>
+			<h2>
+				Password
+			</h2>
+			<p>
+				{user.password}
 			</p>
 			<table id="userWorkouts">
 				<caption>Subscribed workouts</caption>
@@ -23,7 +32,11 @@ const User = ({ user, setIsUpdate }) => {
 				</thead>
 
 				<tbody>
-					{user.workouts.map((workout, k) => { <WorkoutRow workout={workout} /> })}
+					{user.workouts.map((workout, k) => (
+						<tr key={k}>
+							<td>{workout.name}</td>
+						</tr>
+					))}
 				</tbody>
 			</table>
 			<button onClick={() => { setIsUpdate(0) }}>Return to users table</button>

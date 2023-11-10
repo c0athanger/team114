@@ -10,6 +10,7 @@ const Workout = ({ workout, setIsUpdate }) => {
 			<p>
 				{workout.description}
 			</p>
+			<h2>Exercise List</h2>
 			<table id="workoutExercises">
 				<caption>Workout regime</caption>
 				<thead>
