@@ -24,7 +24,7 @@ const Bodyparts = () => {
 		<>
 			{!isUpdate
 				? <div>
-					<button onClick={addEx}>Create</button>
+					<button onClick={addEx}>Create bodypart</button>
 					<table>
 						<thead>
 							<tr>
