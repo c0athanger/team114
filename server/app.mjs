@@ -14,7 +14,7 @@ const USER = process.env.USER
 const db = mysql.createConnection({
   host: 'classmysql.engr.oregonstate.edu',
   user: 'cs340_belingam',
-  password: 5282,
+  password: '5282',
   database: 'cs340_belingam'
 });
 // Serve static files from the React app
