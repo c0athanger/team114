@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Exercise from './Exercise'
 import NewExercise from './NewExercise'
-import axios from '../../api/axios'
+import axios from '../axios'
 
 const Exercises = () => {
 
 	const [exercises_query, setExersizes] = useState([]);
 
-	setExersizes([
-		{ name: 'Bicep Curl', description: 'Curl weights using your biceps', bodyparts: ['biceps'] },
-		{ name: 'Bench Press', description: 'Push barbell while laying on bench', bodyparts: ['chest', 'triceps'] },
-		{ name: 'Squat', description: 'Lower your body by bending your knees', bodyparts: ['legs', 'back'] }
 
-	]);
-
-	const def_ex = { name: 'Put name Here', description: 'Put description here', bodyparts: ['body part name'] }
+	const def_ex = { name: 'Put name Here', description: 'Put description here' }
 
 
 	const [isUpdate, setIsUpdate] = useState(0);
@@ -91,12 +85,12 @@ const Exercises = () => {
 							{exercises_query.map((exercise, index) => (
 								<tr key={index}>
 									<td>
-										<button onClick={(e) => { setExDefault(exercises_query[index]); setIsUpdate(2) }}>{exercise.name}</button>
+										<button onClick={(e) => { e.preventDefault(); setExDefault(exercises_query[index]); setIsUpdate(2) }}>{exercise.name}</button>
 									</td>
 									<td>{exercise.description}</td>
 									<td>
 										<button onClick={(e) => { e.preventDefault(); editExercises(index) }}>Update</button>
-										<button onClicl={handleDelete(index)}>Delete</button>
+										<button onClick={(e) => { e.preventDefault(); handleDelete(index) }}>Delete</button>
 									</td>
 								</tr>
 							))}
