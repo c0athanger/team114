@@ -18,7 +18,7 @@ const Exercises = () => {
 	const [isNew, setIsNew] = useState(true);
 
 	const handleCreate = async (e) => {
-		const response = await axios.put('/Exercise', JSON.stringify(e), {
+		const response = await axios.post('/Exercise', JSON.stringify(e), {
 			headers: { 'Content-Type': 'application/json' }
 		});
 		handleSearch();
@@ -49,8 +49,8 @@ const Exercises = () => {
 
 
 	const editExercises = (i) => {
-		setExDefault(exercises_query[i])
 		setIsNew(0);
+		setExDefault(exercises_query[i])
 		setIsUpdate(true);
 	}
 
