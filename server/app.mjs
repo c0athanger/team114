@@ -1,9 +1,15 @@
-const express = require('express');
-const path = require('path');
-const mysql = require('mysql');
+// const express = require('express');
+// const path = require('path');
+// const mysql = require('mysql');
+import path from 'path';
+import mysql from 'mysql';
+import express from 'express'
 const app = express();
+import 'dotenv/config.js'
 
 // app.js - SETUP section
+const PASS = process.env.PASS
+const USER = process.env.USER
 
 const db = mysql.createConnection({
     host  : 'classmysql.engr.oregonstate.edu',
@@ -12,7 +18,7 @@ const db = mysql.createConnection({
     database : 'cs340_belingam'
 });
 // Serve static files from the React app
-app.use(express.static('/nfs/stak/users/belingam/CS340/project/build'));
+app.use(express.static('../build'));
 
 app.get('/Exercise', (req, res) => {
   const searchTerm = req.query.search || '';
@@ -52,9 +58,9 @@ app.delete('/Exercise', (req, res) => {
 });
 
 // Catch all other routes and return the index.html file from React app
-app.get('*', (req, res) => {
-  res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
-});
+// app.get('*', (req, res) => {
+//   res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
+// });
 
 const PORT = 8999;
 app.listen(PORT, () => {
