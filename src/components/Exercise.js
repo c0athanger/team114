@@ -7,10 +7,6 @@ const Exercise = ({ exercise, setIsUpdate }) => {
 			<p>{exercise.name}</p>
 			<h2>Exercise description</h2>
 			<p>{exercise.description}</p>
-			<h2>Bodyparts targeted by exercise</h2>
-			{exercise.bodyparts.map((bodypart, i) => (
-				<p key={i}>{bodypart}</p>
-			))}
 			<button onClick={() => { setIsUpdate(0) }}>Return to exercises table</button>
 		</div>
 	)
