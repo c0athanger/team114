@@ -76,7 +76,7 @@ const Exercises = () => {
 									<label for="idsearch" >
 										<input type="text" id="idsearch" placeholder="Enter exercise name here" value={search} onChange={e => setSearch(e.target.value)}></input>
 									</label>
-									<button onClick={handleSearch}></button>
+									<button onClick={handleSearch}> Search </button>
 								</th>
 								<th>Description</th>
 								<th>Actions</th>
