@@ -3,19 +3,19 @@ import AddBodypart from './AddBodypart';
 
 
 const NewExercise = ({ exercise, setIsUpdate, handleSubmit }) => {
-	const [name, setName] = useState(exercise.name);
-	const [description, setDescription] = useState(exercise.description);
+	const [Name, setName] = useState(exercise.name);
+	const [Description, setDescription] = useState(exercise.description);
 
 
 	const EditExercise = (e) => {
 		e.preventDefault();
 		setIsUpdate(false)
 		if (('exerciseID' in exercise) == false) {
-			handleSubmit({ name, description });
+			handleSubmit({ Name, Description });
 		}
 		else {
 			const exerciseID = exercise.exerciseID;
-			handleSubmit({ name, description, exerciseID })
+			handleSubmit({ Name, Description, exerciseID })
 		}
 	}
 
@@ -37,12 +37,12 @@ const NewExercise = ({ exercise, setIsUpdate, handleSubmit }) => {
 					<tr>
 						<td>
 							<label for="idname" className="required">
-								<input type="text" id="idname" value={name} name="name" onChange={e => setName(e.target.value)}></input>
+								<input type="text" id="idname" value={Name} name="name" onChange={e => setName(e.target.value)}></input>
 							</label>
 						</td>
 						<td>
 							<label for="iddescription" className="required">
-								<input type="text" id="iddescription" value={description} name="description" onChange={e => setDescription(e.target.value)}></input>
+								<input type="text" id="iddescription" value={Description} name="description" onChange={e => setDescription(e.target.value)}></input>
 							</label>
 						</td>
 						<td><button onClick={EditExercise}>Save</button></td>
