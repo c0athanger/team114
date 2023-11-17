@@ -12,10 +12,10 @@ const PASS = process.env.PASS
 const USER = process.env.USER
 
 const db = mysql.createConnection({
-    host  : 'classmysql.engr.oregonstate.edu',
-    user : 'cs340_belingam',
-    password : '5282',
-    database : 'cs340_belingam'
+  host: 'classmysql.engr.oregonstate.edu',
+  user: 'cs340_belingam',
+  password: '5282',
+  database: 'cs340_belingam'
 });
 // Serve static files from the React app
 app.use(express.static('../build'));
@@ -29,19 +29,32 @@ app.get('/Exercise', (req, res) => {
       res.status(500).send('Error fetching exercises');
       return;
     }
+
     res.json(exercises);
   });
 });
 
 app.post('/Exercise', (req, res) => {
-  const { name, description } = req.body; 
+  const { Name, Description } = req.body;
   const insertExerciseQuery = "INSERT INTO Exercises (Name, Description) VALUES (?, ?)";
-  db.query(insertExerciseQuery, [name, description], (err, result) => {
+  db.query(insertExerciseQuery, [Name, Description], (err, result) => {
     if (err) {
       res.status(500).send('Error adding new exercise');
       return;
     }
     res.status(201).json({ message: "Exercise created successfully", exerciseID: result.insertId });
+  });
+});
+
+app.put('/Exercise', (req, res) => {
+  const { exerciseID, Name, Description } = req.body
+  const updateExerciseQuery = "UPDATE Exercises SET Name = ?, Description = ? WHERE ExerciseID = ?";
+  db.query(updateExerciseQuery, [Name, Description, exerciseID], (err, result) => {
+    if (err) {
+      res.status(500).send('Error updating exercise');
+      return;
+    }
+    res.json({ message: "Exercise updated successfully" });
   });
 });
 

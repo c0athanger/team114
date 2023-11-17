@@ -39,12 +39,7 @@ const Exercises = () => {
 	}
 
 	const handleSearch = async () => {
-		// const response = await axios.get('/Exercise', JSON.stringify({ search }), {
-		// 	headers: { 'Content-Type': 'application/json' }
-		// });
-		const response = await fetch(`/Exercise?search=${search}`, {
-			method: 'GET',
-		})
+		const response = await axios.get(`/Exercise?search=${search}`);
 		setExersizes(response.data)
 	}
 
