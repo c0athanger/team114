@@ -10,7 +10,7 @@ const NewExercise = ({ exercise, setIsUpdate, handleSubmit }) => {
 	const EditExercise = (e) => {
 		e.preventDefault();
 		setIsUpdate(false)
-		if (exercise.exerciseID === undefined) {
+		if (('exerciseID' in exercise) == false) {
 			handleSubmit({ name, description });
 		}
 		else {
