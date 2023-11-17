@@ -15,7 +15,7 @@ const Exercises = () => {
 	const [search, setSearch] = useState('');
 	const [exDefault, setExDefault] = useState(def_ex);
 	const name_space = "name:  "
-	const isNew = true;
+	const [isNew, setIsNew] = useState(true);
 
 	const handleCreate = async (e) => {
 		const response = await axios.put('/Exercise', JSON.stringify(e), {
@@ -50,13 +50,13 @@ const Exercises = () => {
 
 	const editExercises = (i) => {
 		setExDefault(exercises_query[i])
-		isNew = 0;
+		setIsNew(0);
 		setIsUpdate(true);
 	}
 
 	const addEx = (e) => {
 		e.preventDefault()
-		isNew = 1;
+		setIsNew(1);
 		setExDefault(def_ex)
 		setIsUpdate(1);
 	}
