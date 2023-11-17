@@ -32,8 +32,9 @@ const Exercises = () => {
 	}
 
 	const handleDelete = async (i) => {
-		const response = await axios.delete('/Exercise', JSON.stringify(exercises_query[i].exerciseID), {
-			headers: { 'Content-Type': 'application/json' }
+		const response = await axios.delete('/Exercise', {
+			headers: { 'Content-Type': 'application/json'},
+			data: {ExerciseID: JSON.stringify(exercises_query[i].ExerciseID)}
 		});
 		handleSearch();
 	}
@@ -45,6 +46,7 @@ const Exercises = () => {
 
 	useEffect(() => {
 		handleSearch()
+                
 	}, []);
 
 

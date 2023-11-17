@@ -14,11 +14,14 @@ const USER = process.env.USER
 const db = mysql.createConnection({
   host: 'classmysql.engr.oregonstate.edu',
   user: 'cs340_belingam',
-  password: '5282',
+  password: 5282,
   database: 'cs340_belingam'
 });
 // Serve static files from the React app
 app.use(express.static('../build'));
+// app.use(express.json())
+
+app.use(express.json());
 
 app.get('/Exercise', (req, res) => {
   const searchTerm = req.query.search || '';
@@ -47,9 +50,9 @@ app.post('/Exercise', (req, res) => {
 });
 
 app.put('/Exercise', (req, res) => {
-  const { exerciseID, Name, Description } = req.body
+  const { ExerciseID, Name, Description } = req.body
   const updateExerciseQuery = "UPDATE Exercises SET Name = ?, Description = ? WHERE ExerciseID = ?";
-  db.query(updateExerciseQuery, [Name, Description, exerciseID], (err, result) => {
+  db.query(updateExerciseQuery, [Name, Description, ExerciseID], (err, result) => {
     if (err) {
       res.status(500).send('Error updating exercise');
       return;
@@ -59,9 +62,9 @@ app.put('/Exercise', (req, res) => {
 });
 
 app.delete('/Exercise', (req, res) => {
-  const { exerciseID } = req.body;
+  const { ExerciseID } = req.body;
   const deleteQuery = "DELETE FROM Exercises WHERE ExerciseID = ?";
-  db.query(deleteQuery, [exerciseID], (err, result) => {
+  db.query(deleteQuery, [ExerciseID], (err, result) => {
     if (err) {
       res.status(500).send('Error deleting exercise');
       return;

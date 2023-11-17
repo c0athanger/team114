@@ -3,19 +3,19 @@ import AddBodypart from './AddBodypart';
 
 
 const NewExercise = ({ exercise, setIsUpdate, handleSubmit }) => {
-	const [Name, setName] = useState(exercise.name);
-	const [Description, setDescription] = useState(exercise.description);
+	const [Name, setName] = useState(exercise.Name);
+	const [Description, setDescription] = useState(exercise.Description);
 
 
 	const EditExercise = (e) => {
 		e.preventDefault();
 		setIsUpdate(false)
-		if (('exerciseID' in exercise) == false) {
+		if (('ExerciseID' in exercise) == false) {
 			handleSubmit({ Name, Description });
 		}
 		else {
-			const exerciseID = exercise.exerciseID;
-			handleSubmit({ Name, Description, exerciseID })
+			const ExerciseID = exercise.ExerciseID;
+			handleSubmit({ Name, Description, ExerciseID })
 		}
 	}
 
