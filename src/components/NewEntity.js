@@ -4,7 +4,7 @@ import AddBodypart from './AddBodypart';
 
 const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	const [pk, setPk] = useState(entity[attr[0]]);
-	const [attr_header, setHeader] = useState(function () { let temp = attr; temp.shift(); return temp }());
+	const [attr_header, setHeader] = useState(function () { let temp = { ...attr }; temp.shift(); return temp }());
 	const [ent, setEnt] = useState({ ...entity })
 
 
