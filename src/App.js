@@ -6,6 +6,7 @@ import Users from './components/Users'
 import Exercises from './components/Exercises';
 import Workouts from './components/Workouts';
 import Bodyparts from './components/Bodyparts';
+import axios from '../axios'
 
 const App = () => {
 
@@ -22,7 +23,7 @@ const App = () => {
 
   useEffect(() => {
     let temp = [];
-    for (table in ALLTABLES) {
+    for (let table in ALLTABLES) {
       temp.push(get_attr_request(table));
     }
     setAttr(temp);
@@ -32,7 +33,6 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="/Exercises" element={<Exercises />} />
-        <Route path="/Tests" element={<Table attr={['ExerciseID', 'Name', 'Description']} />} />
         <Route path="/Workouts" element={<Workouts />} />
         <Route path="/Users" element={<Users />} />
         <Route path="/Bodyparts" element={<Bodyparts />} />
