@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AddBodypart from './AddBodypart';
 
 
 const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
-	const [Name, setName] = useState(exercise.Name);
-	const [Description, setDescription] = useState(exercise.Description);
-
+	const [attr_header, setHeader] = useState(attr);
 	const [ent, setEnt] = useState(entity)
 
 
@@ -13,6 +11,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		e.preventDefault();
 		if (isEdit == false) {
 			setIsUpdate(false)
+			delete entity[attr[0]];
 			handleSubmit(entity);
 		}
 		else {
@@ -20,6 +19,15 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			handleSubmit(entity);
 		}
 	}
+
+	useEffect(() => {
+		let temp = entity
+		delete temp[attr[0]];
+		setEnt(temp);
+		temp = attr;
+		temp.shift();
+		setHeader(temp);
+	}, [])
 
 	return (
 		<>
@@ -30,23 +38,23 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 				<caption>Create/edit an entity</caption>
 				<thead>
 					<tr>
-				{attr.map((attribute, index) => (
-                        <th key={index}>
-                            {attribute}
-                        </th>
-                ))}
+						{attr_header.map((attribute, index) => (
+							<th key={index}>
+								{attribute}
+							</th>
+						))}
 					</tr>
 				</thead>
 
 				<tbody>
 					<tr>
-				{attr.map((attribute, index) => (
-                        <td key={index}>
-							<label for="idname" className="required">
-								<input type="text" id="idname" placeholder="Enter value here" value={entity[attribute]} name="name" onChange={e => {let en = {...entity}; en[attribute] = e.target,value; setEnt(en)}}></input>
-							</label>
-                        </td>
-                ))}
+						{attr_header.map((attribute, index) => (
+							<td key={index}>
+								<label for="idname" className="required">
+									<input type="text" id="idname" placeholder="Enter value here" value={ent[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target, value; setEnt(en) }}></input>
+								</label>
+							</td>
+						))}
 						<td><button onClick={EditExercise}>Save</button></td>
 					</tr>
 				</tbody>

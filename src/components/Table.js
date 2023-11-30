@@ -3,7 +3,7 @@ import Exercise from './Exercise'
 import NewEntity from './NewEntity'
 import axios from '../axios'
 
-const Table = ( {attr, rt, name} ) => {
+const Table = ({ attr, rt, name }) => {
 
 	const [query, setQuery] = useState([]);
 
@@ -15,7 +15,7 @@ const Table = ( {attr, rt, name} ) => {
 	const [exDefault, setExDefault] = useState({});
 	const name_space = "name:  "
 	const [isNew, setIsNew] = useState(true);
-    const [isEdit, setEdit] = useState(0);
+	const [isEdit, setEdit] = useState(0);
 
 	const handleCreate = async (e) => {
 		const response = await axios.post(rt, JSON.stringify(e), {
@@ -33,7 +33,7 @@ const Table = ( {attr, rt, name} ) => {
 
 	const handleDelete = async (i) => {
 		const response = await axios.delete(rt, {
-			headers: { 'Content-Type': 'application/json'},
+			headers: { 'Content-Type': 'application/json' },
 			data: JSON.stringify(query[i])
 		});
 		handleSearch();
@@ -46,12 +46,12 @@ const Table = ( {attr, rt, name} ) => {
 
 	useEffect(() => {
 		handleSearch()
-                
+
 	}, []);
 
 
 	const editEntity = (i) => {
-        setEdit(1);
+		setEdit(1);
 		setIsNew(0);
 		setExDefault(query[i])
 		setIsUpdate(true);
@@ -59,15 +59,15 @@ const Table = ( {attr, rt, name} ) => {
 
 	const addEntity = (e) => {
 		e.preventDefault()
-        setEdit(0);
+		setEdit(0);
 		setIsNew(1);
 
-        let def_ex_temp = {};
+		let def_ex_temp = {};
 
-        for (a in attr) {
-            def_ex_temp[a] = "Enter value here"
-        }
-        
+		for (a in attr) {
+			def_ex_temp[a] = "Enter value here"
+		}
+
 		setExDefault(def_ex_temp)
 		setIsUpdate(1);
 	}
@@ -87,19 +87,19 @@ const Table = ( {attr, rt, name} ) => {
 									</label>
 									<button onClick={handleSearch}> Search </button>
 								</th>
-                            {attr.map((attribute, index) => (
-                                <th key={index}>
-                                    {attribute}
-                                </th>
-                            ))}
+								{attr.map((attribute, index) => (
+									<th key={index}>
+										{attribute}
+									</th>
+								))}
 							</tr>
 						</thead>
 						<tbody>
 							{query.map((entity, index) => (
 								<tr key={index}>
-                                {attr.map((attribute, i) => (
-                                    <td>{entity[attribute]}</td>
-                                ))}
+									{attr.map((attribute, i) => (
+										<td>{entity[attribute]}</td>
+									))}
 									<td>
 										<button onClick={(e) => { e.preventDefault(); editEntity(index) }}>Update</button>
 										<button onClick={(e) => { e.preventDefault(); handleDelete(index) }}>Delete</button>
@@ -112,7 +112,7 @@ const Table = ( {attr, rt, name} ) => {
 				: isUpdate == 1
 					?
 					<div>
-						<NewEntity exercise={exDefault} attr={attr} handleSubmit={isNew ? handleCreate : handleUpdate} setIsUpdate={setIsUpdate} isEdit={isEdit}/>
+						<NewEntity entity={exDefault} attr={attr} handleSubmit={isNew ? handleCreate : handleUpdate} setIsUpdate={setIsUpdate} isEdit={isEdit} />
 					</div>
 					:
 					<div>
