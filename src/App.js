@@ -30,11 +30,11 @@ const App = () => {
       console.log(get_attr_request(table));
     }
 
+    setAttr(temp);
   }
 
   useEffect(() => {
     make_attributes();
-    setAttr(temp);
   }, [])
 
   return (
