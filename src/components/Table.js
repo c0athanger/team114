@@ -56,7 +56,7 @@ const Table = ({ attr, rt, name }) => {
 		setEdit(1);
 		setIsNew(0);
 		setExDefault(query[i])
-		setIsUpdate(true);
+		setIsUpdate(1);
 	}
 
 	const addEntity = (e) => {
@@ -100,6 +100,7 @@ const Table = ({ attr, rt, name }) => {
 						<tbody>
 							{query.map((entity, index) => (
 								<tr key={index}>
+									<td></td>
 									{attr.map((attribute, i) => (
 										<td>{entity[attribute]}</td>
 									))}
