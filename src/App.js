@@ -6,7 +6,7 @@ import Users from './components/Users'
 import Exercises from './components/Exercises';
 import Workouts from './components/Workouts';
 import Bodyparts from './components/Bodyparts';
-import axios from '../axios'
+import axios from 'axios'
 
 const App = () => {
 
