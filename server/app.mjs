@@ -33,7 +33,7 @@ app.get('/Attribute', (req, res) => {
       return
     }
     let temp = [];
-    for (attr in result) {
+    for (attr of result) {
       temp.push(attr['COLUMN_NAME'])
     }
     res.json(temp)

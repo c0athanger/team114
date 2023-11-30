@@ -23,7 +23,7 @@ const App = () => {
 
   useEffect(() => {
     let temp = [];
-    for (let table in ALLTABLES) {
+    for (let table of ALLTABLES) {
       temp.push(get_attr_request(table));
     }
     setAttr(temp);
