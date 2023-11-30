@@ -22,19 +22,19 @@ const App = () => {
     return response.data
   }
 
-  const make_attributes = () => {
+  const make_attributes = async () => {
     let temp = {};
     for (let table of ALLTABLES) {
-      temp[table] = get_attr_request(table);
+      temp[table] = await get_attr_request(table);
       console.log("Attributes: ")
-      console.log(get_attr_request(table));
+      console.log(temp);
     }
 
     setAttr(temp);
   }
 
-  useEffect(() => {
-    make_attributes();
+  useEffect(async () => {
+    await make_attributes();
   }, [])
 
   return (
