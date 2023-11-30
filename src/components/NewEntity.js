@@ -3,31 +3,25 @@ import AddBodypart from './AddBodypart';
 
 
 const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
-	const [attr_header, setHeader] = useState(attr);
-	const [ent, setEnt] = useState(entity)
+	const [pk, setPk] = useState(entity[attr[0]]);
+	const [attr_header, setHeader] = useState(function () { let temp = attr; temp.shift(); return temp }());
+	const [ent, setEnt] = useState({ ...entity })
 
 
 	const EditExercise = (e) => {
 		e.preventDefault();
 		if (isEdit == false) {
 			setIsUpdate(false)
-			delete entity[attr[0]]
-			handleSubmit(entity);
+			let temp = { ...ent };
+			delete temp[attr[0]];
+			handleSubmit(temp);
 		}
 		else {
 			setIsUpdate(true);
-			handleSubmit(entity);
+			let temp = { ...ent };
+			handleSubmit(temp);
 		}
 	}
-
-	useEffect(() => {
-		let temp = entity
-		delete temp[attr[0]];
-		setEnt(temp);
-		temp = attr;
-		temp.shift();
-		setHeader(temp);
-	}, [])
 
 	return (
 		<>

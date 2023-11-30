@@ -18,6 +18,7 @@ const Table = ({ attr, rt, name }) => {
 	const [isEdit, setEdit] = useState(0);
 
 	const handleCreate = async (e) => {
+		console.log("req:"); console.log(e);
 		const response = await axios.post(rt, JSON.stringify(e), {
 			headers: { 'Content-Type': 'application/json' }
 		});
@@ -25,6 +26,7 @@ const Table = ({ attr, rt, name }) => {
 	}
 
 	const handleUpdate = async (e) => {
+		console.log("upreq:"); console.log(e);
 		const response = await axios.put(rt, JSON.stringify(e), {
 			headers: { 'Content-Type': 'application/json' }
 		});
@@ -92,6 +94,7 @@ const Table = ({ attr, rt, name }) => {
 										{attribute}
 									</th>
 								))}
+								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
