@@ -22,11 +22,18 @@ const App = () => {
     return response.data
   }
 
-  useEffect(() => {
+  const make_attributes = () => {
     let temp = {};
     for (let table of ALLTABLES) {
       temp[table] = get_attr_request(table);
+      console.log("Attributes: ")
+      console.log(get_attr_request(table));
     }
+
+  }
+
+  useEffect(() => {
+    make_attributes();
     setAttr(temp);
   }, [])
 
