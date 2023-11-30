@@ -64,7 +64,7 @@ const Table = ({ attr, rt, name }) => {
 
 		let def_ex_temp = {};
 
-		for (a in attr) {
+		for (let a of attr) {
 			def_ex_temp[a] = "Enter value here"
 		}
 

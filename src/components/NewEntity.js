@@ -11,7 +11,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		e.preventDefault();
 		if (isEdit == false) {
 			setIsUpdate(false)
-			delete entity[attr[0]];
+			delete entity[attr[0]]
 			handleSubmit(entity);
 		}
 		else {
@@ -51,7 +51,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 						{attr_header.map((attribute, index) => (
 							<td key={index}>
 								<label for="idname" className="required">
-									<input type="text" id="idname" placeholder="Enter value here" value={ent[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target, value; setEnt(en) }}></input>
+									<input type="text" id="idname" placeholder="Enter value here" value={entity[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target.value; setEnt(en) }}></input>
 								</label>
 							</td>
 						))}
