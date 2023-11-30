@@ -23,6 +23,23 @@ app.use(express.static('../build'));
 
 app.use(express.json());
 
+app.get('/Attribute', (req, res) => {
+  const searchTerm = req.query.search;
+  const query = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'${searchTerm}'`
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error('Error fetching attributes', err);
+      res.status(500).send('Error fetching attributes')
+      return
+    }
+    let temp = [];
+    for (attr in result) {
+      temp.push(attr['COLUMN_NAME'])
+    }
+    res.json(temp)
+  })
+})
+
 app.get('/Exercise', (req, res) => {
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM Exercises WHERE Name LIKE ?";
