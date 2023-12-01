@@ -52,10 +52,14 @@ const Table = ({ attr, rt, name }) => {
 	}, []);
 
 	useEffect(() => {
+		const handleSearchEffect = async () => {
+			const response = await axios.get(`${rout}?search=${search}`);
+			setQuery(response.data)
+		}
 		setRoute(rt); setIsUpdate(0); setSearch(''); setExDefault({});
 		setIsNew(true);
 		setEdit(0);
-		handleSearch()
+		handleSearchEffect();
 	}, [location]);
 
 	const editEntity = (i) => {
