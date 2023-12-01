@@ -55,7 +55,7 @@ const Table = ({ attr, rt, name }) => {
 			const response = await axios.get(`${rt}?search=${search}`);
 			setQuery(response.data)
 		}
-		setRoute(rt); setIsUpdate(0); setSearch(''); setExDefault({});
+		setIsUpdate(0); setSearch(''); setExDefault({});
 		setIsNew(true);
 		setEdit(0);
 		handleSearchEffect().catch(console.error);
