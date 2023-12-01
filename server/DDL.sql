@@ -91,3 +91,39 @@ INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, Sets, Reps, Intensity) VALU
 -- Re-enable foreign key checks and commit the transactions
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
+
+-- Sample data insertion
+INSERT INTO Users (Email, Username, Password) VALUES
+('user1@email.com', 'user1', 'password1'),
+('user2@email.com', 'user2', 'password2'),
+('user3@email.com', 'user3', 'password3'),
+('user4@email.com', 'user4', 'password4');
+
+INSERT INTO BodyParts (Name, IsUpperBody) VALUES
+('Biceps', 1),
+('Shoulders', 1),
+('Back', 1),
+('Legs', 0);
+
+INSERT INTO Exercises ( Name, Description) VALUES
+('Bicep Curl', 'Curl weights using your biceps'),
+('Bench Press', 'Push barbell while laying on bench'),
+('Squat', 'Lower your body by bending your knees');
+
+INSERT INTO Workouts (Name, Description) VALUES
+('Upper Body Workout', 'Workout targeting the upper body'),
+('Lower Body Workout', 'Workout targeting the lower body'),
+('Full Body Workout', 'Workout targeting the entire body');
+
+-- Assuming a user has subscribed to a workout or created a workout
+INSERT INTO UsersWorkouts (WorkoutID, UserID) VALUES
+(1, 1),
+(2, 2);
+
+
+INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, Sets, Reps, Intensity) VALUES
+(1, 1, 3, 10, 0.75),
+(2, 2, 3, 10, 0.5),
+(2, 2, 3, 8, 0.80);
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
