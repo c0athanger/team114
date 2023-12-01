@@ -42,13 +42,31 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 
 				<tbody>
 					<tr>
-						{attr_header.map((attribute, index) => (
-							<td key={index}>
-								<label for="idname" className="required">
-									<input type="text" id="idname" placeholder="Enter value here" value={ent[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target.value; setEnt(en) }}></input>
-								</label>
-							</td>
-						))}
+						{attr_header.map((attribute, index) => {
+
+							if (attribute === 'IsUpperBody') {
+								return (
+									<td key={index}>
+										<label for="idname" className="required">
+											<select name>
+												<option value={1}>Yes</option>
+												<option value={0}>No</option>
+											</select>
+										</label>
+									</td>
+								)
+							}
+							else {
+								return (
+									<td key={index}>
+										<label for="idname" className="required">
+											<input type="text" id="idname" placeholder="Enter value here" value={ent[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target.value; setEnt(en) }}></input>
+										</label>
+									</td>
+								)
+							}
+						})}
+
 						<td><button onClick={EditExercise}>Save</button></td>
 					</tr>
 				</tbody>
