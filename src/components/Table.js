@@ -9,7 +9,7 @@ const Table = ({ attr, rt, name }) => {
 
 
 	const location = useLocation();
-	const [rout, _] = useState(rt);
+	const [rout, setRoute] = useState(rt);
 	const [isUpdate, setIsUpdate] = useState(0);
 	const [search, setSearch] = useState('');
 	const [exDefault, setExDefault] = useState({});
@@ -52,6 +52,9 @@ const Table = ({ attr, rt, name }) => {
 	}, []);
 
 	useEffect(() => {
+		setRoute(rt); setIsUpdate(0); setSearch(''); setExDefault({});
+		setIsNew(true);
+		setEdit(0);
 		handleSearch()
 	}, [location]);
 
