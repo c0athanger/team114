@@ -48,9 +48,11 @@ const Table = ({ attr, rt, name }) => {
 
 	useEffect(() => {
 		handleSearch()
-
 	}, []);
 
+	useEffect(() => {
+		handleSearch()
+	}, [rout]);
 
 	const editEntity = (i) => {
 		setEdit(1);
