@@ -95,8 +95,6 @@ app.get('/User', (req, res) => {
   });
 });
 
-
-
 app.post('/Exercise', (req, res) => {
   const { Name, Description } = req.body;
   const insertExerciseQuery = "INSERT INTO Exercises (Name, Description) VALUES (?, ?)";
@@ -112,7 +110,7 @@ app.post('/Exercise', (req, res) => {
 app.post('/BodyPart', (req, res) => {
   const { Name, isUpper } = req.body;
   const isUpperInt = parseInt(isUpper, 10);
-  const insertBodyPartQuery = "INSERT INTO BodyParts (Name, isUpper) VALUES (?, ?)";
+  const insertBodyPartQuery = "INSERT INTO BodyParts (Name, isUpperInt) VALUES (?, ?)";
   db.query(insertBodyPartQuery, [Name, isUpperInt], (err, result) => {
     if (err) {
       res.status(500).send('Error adding new body part');
@@ -158,8 +156,9 @@ app.put('/Exercise', (req, res) => {
 });
 app.put('/BodyPart', (req, res) => {
   const { BodyPartID, Name, isUpper } = req.body
-  const updateBodyPartQuery = "UPDATE BodyParts SET Name = ?, Description = ? WHERE ExerciseID = ?";
-  db.query(updateBodyPartQuery, [Name, isUpper, BodyPartID], (err, result) => {
+  const isUpperInt = parseInt(isUpper, 10);
+  const updateBodyPartQuery = "UPDATE BodyParts SET Name = ?, isUpperInt = ? WHERE BodyPartID = ?";
+  db.query(updateBodyPartQuery, [Name, isUpperInt, BodyPartID], (err, result) => {
     if (err) {
       res.status(500).send('Error updating Body Part');
       return;
