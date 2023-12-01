@@ -83,7 +83,7 @@ app.get('/Workout', (req, res) => {
 
 app.get('/User', (req, res) => {
   const searchTerm = req.query.search || '';
-  const query = "SELECT * FROM Users WHERE Name LIKE ?";
+  const query = "SELECT * FROM Users WHERE Username LIKE ?";
   db.query(query, [`%${searchTerm}%`], (err, users) => {
     if (err) {
       console.error('Error fetching users', err);
@@ -132,7 +132,7 @@ app.post('/Workout', (req, res) => {
   });
 });
 
-app.post('/Users', (req, res) => {
+app.post('/User', (req, res) => {
   const { Username,Email,Password } = req.body;
   const insertUserQuery = "INSERT INTO Workouts (Name, Description) VALUES (?, ?)";
   db.query(insertUserQuery, [Username,Email,Password ], (err, result) => {
