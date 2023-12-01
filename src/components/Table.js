@@ -5,7 +5,6 @@ import axios from '../axios'
 
 const Table = ({ attr, rt, name }) => {
 
-	const [query, setQuery] = useState([]);
 
 
 
@@ -16,6 +15,11 @@ const Table = ({ attr, rt, name }) => {
 	const name_space = "name:  "
 	const [isNew, setIsNew] = useState(true);
 	const [isEdit, setEdit] = useState(0);
+	const [query, setQuery] = useState(async function () {
+
+		const response = await axios.get(`${rt}?search=${search}`);
+		return response;
+	}());
 
 	const handleCreate = async (e) => {
 		console.log("req:"); console.log(e);
