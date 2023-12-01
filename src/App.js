@@ -43,7 +43,6 @@ const App = () => {
         <Route path="/Bodyparts" element={<Table attr={all_attr['BodyParts']} rt="/BodyPart" name="Bodypart" />} />
         <Route path="/Workouts" element={<Table attr={all_attr['Workouts']} rt="/Workout" name="Workout" />} />
         <Route path="/Users" element={<Table attr={all_attr['Users']} rt="/User" name="User" />} />
-        <Route path="/Users" element={<Users />} />
       </Route>
     </Routes>
   );
