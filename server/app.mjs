@@ -22,7 +22,24 @@ app.use(express.static('../build'));
 // app.use(express.json())
 
 app.use(express.json());
-// ---------GET EXERCISES----------
+
+app.get('/Attribute', (req, res) => {
+  const searchTerm = req.query.search;
+  const query = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'${searchTerm}'`
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error('Error fetching attributes', err);
+      res.status(500).send('Error fetching attributes')
+      return
+    }
+    let temp = [];
+    for (let attr of result) {
+      temp.push(attr['COLUMN_NAME'])
+    }
+    res.json(temp)
+  })
+})
+
 app.get('/Exercise', (req, res) => {
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM Exercises WHERE Name LIKE ?";
@@ -199,7 +216,7 @@ app.delete('/Workout', (req, res) => {
 //   res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
 // });
 
-const PORT = 8999;
+const PORT = 9005;
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
