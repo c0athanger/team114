@@ -76,7 +76,11 @@ const Table = ({ attr, rt, name }) => {
 		let def_ex_temp = {};
 
 		for (let a of attr) {
-			def_ex_temp[a] = "Enter value here"
+			if (a == 'IsUpperBody') {
+				def_ex_temp[a] = "1"
+			} else {
+				def_ex_temp[a] = "Enter value here"
+			}
 		}
 
 		setExDefault(def_ex_temp)
