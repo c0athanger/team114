@@ -17,7 +17,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			handleSubmit(temp);
 		}
 		else {
-			setIsUpdate(true);
+			setIsUpdate(false);
 			let temp = { ...ent };
 			handleSubmit(temp);
 		}
