@@ -8,7 +8,7 @@ const Table = ({ attr, rt, name }) => {
 
 
 
-	const [swap, _] = useState(name);
+	const [rout, _] = useState(rout);
 	const [isUpdate, setIsUpdate] = useState(0);
 	const [search, setSearch] = useState('');
 	const [exDefault, setExDefault] = useState({});
@@ -19,7 +19,7 @@ const Table = ({ attr, rt, name }) => {
 
 	const handleCreate = async (e) => {
 		console.log("req:"); console.log(e);
-		const response = await axios.post(rt, JSON.stringify(e), {
+		const response = await axios.post(rout, JSON.stringify(e), {
 			headers: { 'Content-Type': 'application/json' }
 		});
 		handleSearch();
@@ -27,14 +27,14 @@ const Table = ({ attr, rt, name }) => {
 
 	const handleUpdate = async (e) => {
 		console.log("upreq:"); console.log(e);
-		const response = await axios.put(rt, JSON.stringify(e), {
+		const response = await axios.put(rout, JSON.stringify(e), {
 			headers: { 'Content-Type': 'application/json' }
 		});
 		handleSearch();
 	}
 
 	const handleDelete = async (i) => {
-		const response = await axios.delete(rt, {
+		const response = await axios.delete(rout, {
 			headers: { 'Content-Type': 'application/json' },
 			data: JSON.stringify(query[i])
 		});
@@ -42,7 +42,7 @@ const Table = ({ attr, rt, name }) => {
 	}
 
 	const handleSearch = async () => {
-		const response = await axios.get(`${rt}?search=${search}`);
+		const response = await axios.get(`${rout}?search=${search}`);
 		setQuery(response.data)
 	}
 
@@ -50,9 +50,6 @@ const Table = ({ attr, rt, name }) => {
 		handleSearch()
 
 	}, []);
-	useEffect(() => {
-		handleSearch()
-	}, [swap]);
 
 
 	const editEntity = (i) => {
