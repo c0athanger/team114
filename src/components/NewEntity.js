@@ -23,6 +23,12 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		}
 	}
 
+	const handleUpperBody = (e) => {
+		let temp = { ...ent };
+		temp['IsUpperBody'] = e.target.value;
+		setEnt(temp);
+	}
+
 	return (
 		<>
 			<p>
@@ -48,7 +54,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
-											<select name>
+											<select value={ent[attribute]} onChange={handleUpperBody}>
 												<option value={1}>Yes</option>
 												<option value={0}>No</option>
 											</select>
