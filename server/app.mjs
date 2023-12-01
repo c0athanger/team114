@@ -112,7 +112,7 @@ app.post('/Exercise', (req, res) => {
 app.post('/BodyPart', (req, res) => {
   const { Name, isUpper } = req.body;
   const insertBodyPartQuery = "INSERT INTO BodyParts (Name, isUpper) VALUES (?, ?)";
-  db.query(insertBodyPartQuery , [Name,isUpper], (err, result) => {
+  db.query(insertBodyPartQuery, [Name, isUpper], (err, result) => {
     if (err) {
       res.status(500).send('Error adding new body part');
       return;
@@ -156,9 +156,9 @@ app.put('/Exercise', (req, res) => {
   });
 });
 app.put('/BodyPart', (req, res) => {
-  const {BodyPartID,Name,isUpper} = req.body
+  const { BodyPartID, Name, isUpper } = req.body
   const updateBodyPartQuery = "UPDATE BodyParts SET Name = ?, Description = ? WHERE ExerciseID = ?";
-  db.query(updateBodyPartQuery, [Name,isUpper,BodyPartID], (err, result) => {
+  db.query(updateBodyPartQuery, [Name, isUpper, BodyPartID], (err, result) => {
     if (err) {
       res.status(500).send('Error updating Body Part');
       return;
@@ -211,13 +211,13 @@ app.delete('/Exercise', (req, res) => {
   });
 });
 app.delete('/BodyPart', (req, res) => {
-  const { BodyPartID} = req.body;
+  const { BodyPartID } = req.body;
   const deleteJunctionQuery = "DELETE FROM ExerciseBodyParts WHERE BodyPartID = ?";
   db.query(deleteJunctionQuery, [BodyPartID], (err, result) => {
     if (err) {
       res.status(500).send('Error deleting associated exercise in ExerciseBodyParts');
       return;
-    }  
+    }
     const deleteQuery = "DELETE FROM BodyParts WHERE BodyPartID = ?";
     db.query(deleteQuery, [BodyPartID], (err, result) => {
       if (err) {
@@ -272,7 +272,7 @@ app.delete('/User', (req, res) => {
 //   res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
 // });
 
-const PORT = 9005;
+const PORT = 9007;
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });

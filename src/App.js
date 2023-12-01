@@ -11,8 +11,7 @@ import axios from 'axios'
 
 const App = () => {
 
-  const ALLBACKENDROUTES = ['/Exercise']
-  const ALLTABLES = ['Exercises']
+  const ALLTABLES = ['Exercises', 'BodyParts', 'Workouts']
   const [all_attr, setAttr] = useState({});
 
   const get_attr_request = async (table_name) => {
@@ -40,11 +39,11 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="/Exercises" element={<Exercises />} />
-        <Route path="/Tests" element={<Table attr={all_attr['Exercises']} rt="/Exercise" name="Exercise" />} />
-        <Route path="/Workouts" element={<Workouts />} />
+        <Route path="/Exercises" element={<Table attr={all_attr['Exercises']} rt="/Exercise" name="Exercise" />} />
+        <Route path="/Bodyparts" element={<Table attr={all_attr['BodyParts']} rt="/BodyPart" name="Bodypart" />} />
+        <Route path="/Workouts" element={<Table attr={all_attr['Workouts']} rt="/Workout" name="Workout" />} />
+        <Route path="/Users" element={<Table attr={all_attr['Users']} rt="/User" name="User" />} />
         <Route path="/Users" element={<Users />} />
-        <Route path="/Bodyparts" element={<Bodyparts />} />
       </Route>
     </Routes>
   );
