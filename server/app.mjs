@@ -111,8 +111,9 @@ app.post('/Exercise', (req, res) => {
 
 app.post('/BodyPart', (req, res) => {
   const { Name, isUpper } = req.body;
+  const isUpperInt = parseInt(isUpper, 10);
   const insertBodyPartQuery = "INSERT INTO BodyParts (Name, isUpper) VALUES (?, ?)";
-  db.query(insertBodyPartQuery, [Name, isUpper], (err, result) => {
+  db.query(insertBodyPartQuery, [Name, isUpperInt], (err, result) => {
     if (err) {
       res.status(500).send('Error adding new body part');
       return;
