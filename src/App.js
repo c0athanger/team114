@@ -11,7 +11,7 @@ import axios from 'axios'
 
 const App = () => {
 
-  const ALLTABLES = ['Exercises', 'BodyParts', 'Workouts']
+  const ALLTABLES = ['Exercises', 'BodyParts', 'Workouts', 'Users']
   const [all_attr, setAttr] = useState({});
 
   const get_attr_request = async (table_name) => {
