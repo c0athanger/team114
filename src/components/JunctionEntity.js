@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import AddBodypart from './AddBodypart';
+import axios from '../axios';
 
 
 const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
@@ -7,7 +8,12 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	const [attr_header, setHeader] = useState(function () { let temp = [...attr]; temp.shift(); return temp }());
 	const [ent, setEnt] = useState({ ...entity });
 	const [fkTable1, setfkTable1] = useState({});
+	const [fkTable2, setfkTable2] = useState({});
 
+	const fk_path_arr = [
+		["BodyPartID", "/BodyPartID"],
+		["ExerciseID", "/ExerciseID"]
+	]
 
 
 	const EditExercise = (e) => {
@@ -30,6 +36,16 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		temp['IsUpperBody'] = e.target.value;
 		setEnt(temp);
 	}
+
+	useEffect(() => {
+		const handleGet = async () => {
+			const response1 = await axios.get(`${fk_path_dict[0][1]}`);
+			const response2 = await axios.get(`${fk_path_dict[1][1]}`);
+			setfkTable1(response1.data);
+			setfkTable2(response2.data);
+		}
+		handleGet().catch(console.error);
+	}, [])
 
 	return (
 		<>
