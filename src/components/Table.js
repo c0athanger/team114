@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react'
 import Exercise from './Exercise'
 import NewEntity from './NewEntity'
 import axios from '../axios'
+import { useLocation } from 'react-router-dom';
 
 const Table = ({ attr, rt, name }) => {
 
 
 
-
+	const location = useLocation();
 	const [rout, _] = useState(rt);
 	const [isUpdate, setIsUpdate] = useState(0);
 	const [search, setSearch] = useState('');
 	const [exDefault, setExDefault] = useState({});
-	const name_space = "name:  "
+	const name_space = "name:  ";
 	const [isNew, setIsNew] = useState(true);
 	const [isEdit, setEdit] = useState(0);
 	const [query, setQuery] = useState([]);
@@ -52,7 +53,7 @@ const Table = ({ attr, rt, name }) => {
 
 	useEffect(() => {
 		handleSearch()
-	}, [rout]);
+	}, [location]);
 
 	const editEntity = (i) => {
 		setEdit(1);
