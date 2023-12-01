@@ -70,17 +70,30 @@ app.get('/BodyPart', (req, res) => {
 app.get('/Workout', (req, res) => {
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM Workouts WHERE Name LIKE ?";
-  db.query(query, [`%${searchTerm}%`], (err, bodyParts) => {
+  db.query(query, [`%${searchTerm}%`], (err, workouts) => {
     if (err) {
       console.error('Error fetching Workouts', err);
       res.status(500).send('Error fetching Workouts');
       return;
     }
 
-    res.json(bodyParts);
+    res.json(workouts);
   });
 });
 
+app.get('/User', (req, res) => {
+  const searchTerm = req.query.search || '';
+  const query = "SELECT * FROM Users WHERE Name LIKE ?";
+  db.query(query, [`%${searchTerm}%`], (err, users) => {
+    if (err) {
+      console.error('Error fetching users', err);
+      res.status(500).send('Error fetching users');
+      return;
+    }
+
+    res.json(users);
+  });
+});
 
 
 
@@ -98,8 +111,9 @@ app.post('/Exercise', (req, res) => {
 
 app.post('/BodyPart', (req, res) => {
   const { Name, isUpper } = req.body;
+  const isUpperInt = parseInt(isUpper, 10);
   const insertBodyPartQuery = "INSERT INTO BodyParts (Name, isUpper) VALUES (?, ?)";
-  db.query(insertBodyPartQuery, [Name, isUpper], (err, result) => {
+  db.query(insertBodyPartQuery, [Name, isUpperInt], (err, result) => {
     if (err) {
       res.status(500).send('Error adding new body part');
       return;
@@ -120,6 +134,17 @@ app.post('/Workout', (req, res) => {
   });
 });
 
+app.post('/Users', (req, res) => {
+  const { Username,Email,Password } = req.body;
+  const insertUserQuery = "INSERT INTO Workouts (Name, Description) VALUES (?, ?)";
+  db.query(insertUserQuery, [Username,Email,Password ], (err, result) => {
+    if (err) {
+      res.status(500).send('Error adding new user');
+      return;
+    }
+    res.status(201).json({ message: "user created successfully", exerciseID: result.insertId });
+  });
+});
 app.put('/Exercise', (req, res) => {
   const { ExerciseID, Name, Description } = req.body
   const updateExerciseQuery = "UPDATE Exercises SET Name = ?, Description = ? WHERE ExerciseID = ?";
@@ -145,13 +170,26 @@ app.put('/BodyPart', (req, res) => {
 
 app.put('/Workout', (req, res) => {
   const { WorkoutID, Name, Description } = req.body
-  const updateExerciseQuery = "UPDATE Workouts SET Name = ?, Description = ? WHERE ExerciseID = ?";
+  const updateExerciseQuery = "UPDATE Workouts SET Name = ?, Description = ? WHERE WorkoutID = ?";
   db.query(updateExerciseQuery, [Name, Description, WorkoutID], (err, result) => {
     if (err) {
       res.status(500).send('Error updating workout');
       return;
     }
     res.json({ message: "workout updated successfully" });
+  });
+});
+
+
+app.put('/User', (req, res) => {
+  const { UserID, Username, Email, Password} = req.body
+  const updateUserQuery = "UPDATE Users SET Username = ?, Email = ?, Password = ? WHERE UserID = ?";
+  db.query(updateUserQuery, [Username, Email, Password, UserID], (err, result) => {
+    if (err) {
+      res.status(500).send('Error updating User');
+      return;
+    }
+    res.json({ message: "User updated successfully" });
   });
 });
 app.delete('/Exercise', (req, res) => {
@@ -194,7 +232,6 @@ app.delete('/BodyPart', (req, res) => {
 
 app.delete('/Workout', (req, res) => {
   const { WorkoutID } = req.body;
-
   const deleteJunctionQuery = "DELETE FROM UsersWorkouts WHERE WorkoutID = ?";
   db.query(deleteJunctionQuery, [WorkoutID], (err, result) => {
     if (err) {
@@ -211,6 +248,26 @@ app.delete('/Workout', (req, res) => {
     });
   });
 });
+
+app.delete('/User', (req, res) => {
+  const { UserID } = req.body;
+  const deleteJunctionQuery = "DELETE FROM UsersWorkouts WHERE UserID = ?";
+  db.query(deleteJunctionQuery, [UserID], (err, result) => {
+    if (err) {
+      res.status(500).send('Error deleting associated workout in UsersWorkouts');
+      return;
+    }
+    const deleteQuery = "DELETE FROM Users WHERE UserID = ?";
+    db.query(deleteQuery, [UserID], (err, result) => {
+      if (err) {
+        res.status(500).send('Error deleting user');
+        return;
+      }
+      res.json({ message: "user deleted successfully" });
+    });
+  });
+});
+
 // Catch all other routes and return the index.html file from React app
 // app.get('*', (req, res) => {
 //   res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
