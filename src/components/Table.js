@@ -8,7 +8,7 @@ const Table = ({ attr, rt, name }) => {
 
 
 
-	const [rout, _] = useState(rout);
+	const [rout, _] = useState(rt);
 	const [isUpdate, setIsUpdate] = useState(0);
 	const [search, setSearch] = useState('');
 	const [exDefault, setExDefault] = useState({});
