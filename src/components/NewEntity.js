@@ -31,6 +31,15 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		setEnt(temp);
 	}
 
+	const falsyEntity = () => {
+		for (k of attr_header) {
+			if (!ent[k]) {
+				return true
+			}
+		}
+		return false
+	}
+
 	return (
 		<>
 			<p>
@@ -75,7 +84,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 							}
 						})}
 
-						<td><button onClick={EditExercise}>Save</button></td>
+						<td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
 					</tr>
 				</tbody>
 			</table>

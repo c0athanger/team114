@@ -82,7 +82,7 @@ const Table = ({ attr, rt, name, fk }) => {
 				def_ex_temp[a] = null
 			}
 			else {
-				def_ex_temp[a] = "Enter value here"
+				def_ex_temp[a] = ""
 			}
 		}
 

@@ -79,7 +79,7 @@ const Table = ({ attr, rt, name }) => {
 			if (a == 'IsUpperBody') {
 				def_ex_temp[a] = "1"
 			} else {
-				def_ex_temp[a] = "Enter value here"
+				def_ex_temp[a] = ""
 			}
 		}
 
