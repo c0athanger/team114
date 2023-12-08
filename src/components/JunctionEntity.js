@@ -53,7 +53,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	}
 
 	const falsyEntity = () => {
-		for (k of attr_header) {
+		for ( k of attr_header) {
 			if (!ent[k] && k != 'BodyPartID') {
 				return true
 			}

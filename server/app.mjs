@@ -95,6 +95,7 @@ app.get('/User', (req, res) => {
   });
 });
 
+
 app.post('/Exercise', (req, res) => {
   const { Name, Description } = req.body;
   const insertExerciseQuery = "INSERT INTO Exercises (Name, Description) VALUES (?, ?)";
@@ -128,7 +129,7 @@ app.post('/Workout', (req, res) => {
       res.status(500).send('Error adding new Workout');
       return;
     }
-    res.status(201).json({ message: "workout created successfully", exerciseID: result.insertId });
+    res.status(201).json({ message: "workout created successfully", WorkoutID: result.insertId });
   });
 });
 
@@ -140,7 +141,20 @@ app.post('/User', (req, res) => {
       res.status(500).send('Error adding new user');
       return;
     }
-    res.status(201).json({ message: "user created successfully", exerciseID: result.insertId });
+    res.status(201).json({ message: "user created successfully", UserID: result.insertId });
+  });
+});
+
+
+app.post('/ExerciseBodyPart', (req, res) => {
+  const { ExerciseID,BodyPartID} = req.body;
+  const insertExerciseBodyPartQuery = "INSERT INTO ExerciseBodyPart (ExerciseID,BodyPartID) VALUES (?, ?)";
+  db.query(insertExerciseBodyPartQuery, [ExerciseID,BodyPartID ], (err, result) => {
+    if (err) {
+      res.status(500).send('Error adding new exercise body part');
+      return;
+    }
+    res.status(201).json({ message: "exercise body part created successfully", exerciseID: result.insertId });
   });
 });
 app.put('/Exercise', (req, res) => {
@@ -188,6 +202,18 @@ app.put('/User', (req, res) => {
       return;
     }
     res.json({ message: "User updated successfully" });
+  });
+});
+
+app.put('/ExerciseBodyPart', (req, res) => {
+  const {ID,ExerciseID,BodyPartID } = req.body
+  const updateExerciseBodyPartQuery = "UPDATE ExerciseBodyPart SET ExerciseID = ?, BodyPartID = ? WHERE ID = ?";
+  db.query(updateExerciseBodyPartQuery, [ExerciseID,BodyPartID,ID], (err, result) => {
+    if (err) {
+      res.status(500).send('Error updating Exercise body part');
+      return;
+    }
+    res.json({ message: "Exercise body part updated successfully" });
   });
 });
 app.delete('/Exercise', (req, res) => {
@@ -266,6 +292,17 @@ app.delete('/User', (req, res) => {
   });
 });
 
+app.delete('/ExerciseBodyPart', (req, res) => {
+  const { ID } = req.body;
+  const deleteQuery = "DELETE FROM ExerciseBodyParts WHERE ID = ?";
+    db.query(deleteQuery, [ID], (err, result) => {
+      if (err) {
+        res.status(500).send('Error deleting exercise body part');
+        return;
+      }
+      res.json({ message: "exercise body part deleted successfully" });
+    });
+  });
 // Catch all other routes and return the index.html file from React app
 // app.get('*', (req, res) => {
 //   res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
