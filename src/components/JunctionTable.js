@@ -43,6 +43,7 @@ const Table = ({ attr, rt, name, fk }) => {
 		console.log(`${rt}?search=${search}`)
 		const response = await axios.get(`${rt}?search=${search}`);
 		setQuery(response.data)
+		console.log(response.data)
 	}
 
 	useEffect(() => {
@@ -54,6 +55,7 @@ const Table = ({ attr, rt, name, fk }) => {
 			console.log(`${rt}?search=${search}`)
 			const response = await axios.get(`${rt}?search=${search}`);
 			setQuery(response.data)
+			console.log(response.data)
 		}
 		setIsUpdate(0); setSearch(''); setExDefault({});
 		setIsNew(true);

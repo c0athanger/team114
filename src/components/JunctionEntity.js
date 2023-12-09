@@ -19,6 +19,13 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	])
 
 
+	const fk_path = {
+		BodyPartID: "/BodyPart",
+		UserID: "/User",
+		WorkoutID: "/Workout"
+	}
+
+
 	const EditExercise = (e) => {
 		e.preventDefault();
 		if (isEdit == false) {
