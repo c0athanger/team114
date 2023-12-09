@@ -171,6 +171,15 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 
 						{/* <td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td> */}
 						<td><button onClick={() => { console.log(fkTableOne) }}>Save</button></td>
+						{Object.keys(fkTableOne).map((attribute, index) => {
+							return (
+								<td key={index}>
+									<label for="idname" className="required">
+										<input type="text" id="idname" placeholder="Enter value here" value={ent[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target.value; setEnt(en) }}></input>
+									</label>
+								</td>
+							)
+						}
 					</tr>
 				</tbody>
 			</table>
