@@ -101,8 +101,8 @@ app.get('/UsersWorkout', (req, res) => {
   const query = "SELECT * FROM UsersWorkouts WHERE ID LIKE ?";
   db.query(query, [`%${searchTerm}%`], (err, users) => {
     if (err) {
-      console.error('Error fetching users', err);
-      res.status(500).send('Error fetching users');
+      console.error('Error fetching users workout', err);
+      res.status(500).send('Error fetching user workout');
       return;
     }
 
@@ -116,14 +116,26 @@ app.get('/ExerciseBodyPart', (req, res) => {
   const query = "SELECT * FROM ExerciseBodyParts WHERE ID LIKE ?";
   db.query(query, [`%${searchTerm}%`], (err, users) => {
     if (err) {
-      console.error('Error fetching users', err);
-      res.status(500).send('Error fetching users');
+      console.error('Error fetching ExerciseBodyPart', err);
+      res.status(500).send('Error fetching ExerciseBodyPart');
       return;
     }
     res.json(users);
   });
 });
 
+app.get('/WorkoutExercise', (req, res) => {
+  const searchTerm = req.query.search || '';
+  const query = "SELECT * FROM WorkoutExercises WHERE ID LIKE ?";
+  db.query(query, [`%${searchTerm}%`], (err, users) => {
+    if (err) {
+      console.error('Error fetching workout exercises', err);
+      res.status(500).send('Error fetching workout exercises');
+      return;
+    }
+    res.json(users);
+  });
+});
 
 app.post('/Exercise', (req, res) => {
   const { Name, Description } = req.body;
@@ -198,6 +210,19 @@ app.post('/UsersWorkout', (req, res) => {
   });
 });
 
+app.post('/WorkoutExercise', (req, res) => {
+  const { WorkoutID, ExerciseID, Sets, Reps, Intensity } = req.body;
+  const insertQuery = "INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, Sets, Reps, Intensity) VALUES (?, ?, ?, ?, ?)";
+  db.query(insertQuery, [WorkoutID, ExerciseID, Sets, Reps, Intensity], (err, result) => {
+      if (err) {
+          console.error('Error adding workout exercise', err);
+          res.status(500).send('Error adding workout exercise');
+          return;
+      }
+      res.status(201).json({ message: "Workout exercise added successfully", workoutExerciseID: result.insertId });
+  });
+});
+
 app.put('/Exercise', (req, res) => {
   const { ExerciseID, Name, Description } = req.body
   const updateExerciseQuery = "UPDATE Exercises SET Name = ?, Description = ? WHERE ExerciseID = ?";
@@ -257,6 +282,19 @@ app.put('/ExerciseBodyPart', (req, res) => {
     res.json({ message: "Exercise body part updated successfully" });
   });
 });
+app.put('/WorkoutExercise', (req, res) => {
+  const { ID, Sets, Reps, Intensity } = req.body;
+  const updateQuery = "UPDATE WorkoutExercises SET Sets = ?, Reps = ?, Intensity = ? WHERE ID = ?";
+  db.query(updateQuery, [Sets, Reps, Intensity, ID], (err, result) => {
+      if (err) {
+          console.error('Error updating workout exercise', err);
+          res.status(500).send('Error updating workout exercise');
+          return;
+      }
+      res.json({ message: "Workout exercise updated successfully" });
+  });
+});
+
 app.delete('/Exercise', (req, res) => {
   const { ExerciseID } = req.body;
 
@@ -345,18 +383,31 @@ app.delete('/ExerciseBodyPart', (req, res) => {
   });
 });
 
-  app.delete('/UsersWorkout', (req, res) => {
-    const { ID } = req.body;
-    const deleteUserWorkoutQuery = "DELETE FROM UsersWorkouts WHERE ID = ?";
-    db.query(deleteUserWorkoutQuery, [ID], (err, result) => {
-      if (err) {
-        res.status(500).send('Error deleting user workout');
-        return;
-      }
-      res.json({ message: "User workout deleted successfully" });
-    });
+app.delete('/UsersWorkout', (req, res) => {
+  const { ID } = req.body;
+  const deleteUserWorkoutQuery = "DELETE FROM UsersWorkouts WHERE ID = ?";
+  db.query(deleteUserWorkoutQuery, [ID], (err, result) => {
+    if (err) {
+      res.status(500).send('Error deleting user workout');
+      return;
+    }
+    res.json({ message: "User workout deleted successfully" });
   });
-  
+});
+
+app.delete('/WorkoutExercises', (req, res) => {
+  const { ID } = req.body;
+  const deleteQuery = "DELETE FROM WorkoutExercises WHERE ID = ?";
+  db.query(deleteQuery, [ID], (err, result) => {
+      if (err) {
+          console.error('Error deleting workout exercise', err);
+          res.status(500).send('Error deleting workout exercise');
+          return;
+      }
+      res.json({ message: "Workout exercise deleted successfully" });
+  });
+});
+
 // Catch all other routes and return the index.html file from React app
 // app.get('*', (req, res) => {
 //   res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
