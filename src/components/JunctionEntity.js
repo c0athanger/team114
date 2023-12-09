@@ -86,7 +86,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			console.log("here:")
 			console.log(temp);
 			setfkTable1({ ...temp })
-			temp = parseNames(response2.data, fk12;
+			temp = parseNames(response2.data, fk2);
 			setfkTable2({ ...temp });
 			console.log('Tables: ')
 			console.log(fkTable1)
