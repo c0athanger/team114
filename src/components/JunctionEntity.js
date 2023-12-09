@@ -70,13 +70,6 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			temp[e[fk]] = e[name_key]
 		}
 		if (fk == "BodyPartID") temp[null] = "None";
-		if (ent[fk] == null) {
-			let temp = { ...ent };
-			temp[fk] = Object.keys(temp)[0];
-			console.log(temp);
-			setEnt({ ...temp });
-		}
-		console.log(temp);
 		f({ ...temp })
 	}
 
@@ -86,6 +79,21 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			const response2 = await axios.get(fk_path[fk2]);
 			parseNames(response1.data, fk1, setfkTableOne);
 			parseNames(response2.data, fk2, setfkTableTwo);
+			let temp = { ...ent }
+			if (temp[fk1] == null) {
+				if (fk1 == "BodyPartID") temp[fk1] = "None";
+				else {
+					temp[fk1] = response1.data[0][fk1]
+				}
+			}
+			if (temp[fk2] == null) {
+				if (fk2 == "BodyPartID") temp[fk2] = "None";
+				else {
+					temp[fk2] = response2.data[0][fk2]
+				}
+			}
+			console.log(temp)
+			setEnt({ ...temp })
 			setHeader(function () { let temp = [...attr]; temp.shift(); return temp }());
 
 		}
