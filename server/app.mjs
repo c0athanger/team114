@@ -282,6 +282,19 @@ app.put('/ExerciseBodyPart', (req, res) => {
     res.json({ message: "Exercise body part updated successfully" });
   });
 });
+app.put('/UsersWorkout', (req, res) => {
+  const { ID, UserID, WorkoutID } = req.body;
+  const updateQuery = "UPDATE UsersWorkouts SET UserID = ?, WorkoutID = ? WHERE ID = ?";
+  db.query(updateQuery, [UserID, WorkoutID, ID], (err, result) => {
+      if (err) {
+          console.error('Error updating user workout', err);
+          res.status(500).send('Error updating user workout');
+          return;
+      }
+      res.json({ message: "User workout updated successfully" });
+  });
+});
+
 app.put('/WorkoutExercise', (req, res) => {
   const { ID, Sets, Reps, Intensity } = req.body;
   const updateQuery = "UPDATE WorkoutExercises SET Sets = ?, Reps = ?, Intensity = ? WHERE ID = ?";
@@ -297,7 +310,6 @@ app.put('/WorkoutExercise', (req, res) => {
 
 app.delete('/Exercise', (req, res) => {
   const { ExerciseID } = req.body;
-
   const deleteJunctionQuery = "DELETE FROM ExerciseBodyParts WHERE ExerciseID = ?";
   db.query(deleteJunctionQuery, [ExerciseID], (err, result) => {
     if (err) {
