@@ -26,6 +26,7 @@ const NavBar = () => {
 					<li><Link to="/Exercises">Exercises</Link></li>
 					<li><Link to="/Workouts">Workouts</Link></li>
 					<li><Link to="/Bodyparts">Bodyparts</Link></li>
+					<li><Link to="/UserWorkouts">UserWorkouts</Link></li>
 				</ul>
 			</nav>
 		</header>
