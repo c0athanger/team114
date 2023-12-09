@@ -69,7 +69,8 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		for (let e of data) {
 			temp[e[fk]] = e[name_key]
 		}
-		console.log(temp);
+		if (fk == "BodyPartID") temp[null] = "None";
+		if (ent[fk] == null) setEnt(function () { let temp = { ...ent }; temp[fk] = Object.keys(temp)[0]; setEnt({ ...temp }); }());
 		f({ ...temp })
 	}
 
@@ -77,17 +78,10 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		const handleGet = async () => {
 			const response1 = await axios.get(fk_path[fk1]);
 			const response2 = await axios.get(fk_path[fk2]);
-			console.log(`Getting responses`)
-			console.log(response1.data)
-			console.log(response2.data)
 			parseNames(response1.data, fk1, setfkTableOne);
 			parseNames(response2.data, fk2, setfkTableTwo);
-			console.log('Tables: ')
-			console.log(fkTableOne)
-			console.log(fkTableTwo)
-			// if (fk1 == "BodyPartID") fkTableOne[null] = "None";
-			// if (fk2 == "BodyPartID") fkTableTwo[null] = "None";
 			setHeader(function () { let temp = [...attr]; temp.shift(); return temp }());
+
 		}
 		handleGet().catch(console.error);
 	}, [])
@@ -133,7 +127,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
-											<select value={Object.keys(fkTableOne)[0]} onChange={handleFK1}>
+											<select value={ent[attribute]} onChange={handleFK1}>
 												{Object.keys(fkTableOne).map((fk, index) => (
 													<option value={fk}>{fkTableOne[fk]}</option>
 												))}
@@ -146,7 +140,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
-											<select value={Object.keys(fkTableTwo)[0]} onChange={handleFK2}>
+											<select value={ent[attribute]} onChange={handleFK2}>
 												{Object.keys(fkTableTwo).map((fk, index) => (
 													<option value={fk}>{fkTableTwo[fk]}</option>
 												))}
