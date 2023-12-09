@@ -84,15 +84,19 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			parseNames(response1.data, fk1, setfkTableOne);
 			parseNames(response1.data, fk1, setfkTableTwo);
 			console.log('Tables: ')
-			if (fk1 == "BodyPartID") fkTableOne[null] = "None";
-			if (fk2 == "BodyPartID") fkTableTwo[null] = "None";
+			console.log(fkTableOne)
+			console.log(fkTableTwo)
+			// if (fk1 == "BodyPartID") fkTableOne[null] = "None";
+			// if (fk2 == "BodyPartID") fkTableTwo[null] = "None";
 			setDef1(Object.keys(fkTableOne)[0]);
 			setDef2(Object.keys(fkTableTwo)[0]);
 		}
 		handleGet().catch(console.error);
-		console.log(fkTableOne)
-		console.log(fkTableTwo)
 	}, [])
+
+	useEffect(() => {
+
+	}, [fkTableOne, fkTableTwo])
 
 	return (
 		<>
