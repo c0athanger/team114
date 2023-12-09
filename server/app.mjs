@@ -95,13 +95,13 @@ app.get('/User', (req, res) => {
   });
 });
 
-app.get('/UserWorkout', (req, res) => {
+app.get('/UsersWorkout', (req, res) => {
   const query = `
     SELECT UsersWorkouts.ID, Users.Username AS UserName, Workouts.Name AS WorkoutName
     FROM UsersWorkouts
     JOIN Users ON UsersWorkouts.UserID = Users.UserID
     JOIN Workouts ON UsersWorkouts.WorkoutID = Workouts.WorkoutID`;
-
+    
   db.query(query, (err, results) => {
     if (err) {
       console.error('Error fetching user workout pairings', err);
@@ -191,7 +191,7 @@ app.post('/ExerciseBodyPart', (req, res) => {
     res.status(201).json({ message: "exercise body part created successfully", exerciseID: result.insertId });
   });
 });
-app.post('/UserWorkout', (req, res) => {
+app.post('/UsersWorkout', (req, res) => {
   const { UserID, WorkoutID } = req.body;
   const insertUserWorkoutQuery = "INSERT INTO UsersWorkouts (UserID, WorkoutID) VALUES (?, ?)";
   db.query(insertUserWorkoutQuery, [UserID, WorkoutID], (err, result) => {
@@ -350,7 +350,7 @@ app.delete('/ExerciseBodyPart', (req, res) => {
     });
   });
 
-  app.delete('/UserWorkout', (req, res) => {
+  app.delete('/UsersWorkout', (req, res) => {
     const { ID } = req.body;
     const deleteUserWorkoutQuery = "DELETE FROM UsersWorkouts WHERE ID = ?";
     db.query(deleteUserWorkoutQuery, [ID], (err, result) => {
