@@ -95,6 +95,40 @@ app.get('/User', (req, res) => {
   });
 });
 
+app.get('/UserWorkoutPairs', (req, res) => {
+  const query = `
+    SELECT UsersWorkouts.ID, Users.Username AS UserName, Workouts.Name AS WorkoutName
+    FROM UsersWorkouts
+    JOIN Users ON UsersWorkouts.UserID = Users.UserID
+    JOIN Workouts ON UsersWorkouts.WorkoutID = Workouts.WorkoutID`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching user workout pairings', err);
+      res.status(500).send('Error fetching user workout pairings');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+app.get('/ExerciseBodyPartPairs', (req, res) => {
+  const query = `
+    SELECT ExerciseBodyPart.ID, Exercises.Name AS ExerciseName, BodyParts.Name AS BodyPartName
+    FROM ExerciseBodyPart
+    JOIN Exercises ON ExerciseBodyPart.ExerciseID = Exercises.ExerciseID
+    JOIN BodyParts ON ExerciseBodyPart.BodyPartID = BodyParts.BodyPartID`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching exercise body part pairings', err);
+      res.status(500).send('Error fetching exercise body part pairings');
+      return;
+    }
+    res.json(results);
+  });
+});
+
 
 app.post('/Exercise', (req, res) => {
   const { Name, Description } = req.body;
@@ -157,6 +191,18 @@ app.post('/ExerciseBodyPart', (req, res) => {
     res.status(201).json({ message: "exercise body part created successfully", exerciseID: result.insertId });
   });
 });
+app.post('/UserWorkout', (req, res) => {
+  const { UserID, WorkoutID } = req.body;
+  const insertUserWorkoutQuery = "INSERT INTO UsersWorkouts (UserID, WorkoutID) VALUES (?, ?)";
+  db.query(insertUserWorkoutQuery, [UserID, WorkoutID], (err, result) => {
+    if (err) {
+      res.status(500).send('Error adding new user workout');
+      return;
+    }
+    res.status(201).json({ message: "User workout created successfully", userWorkoutID: result.insertId });
+  });
+});
+
 app.put('/Exercise', (req, res) => {
   const { ExerciseID, Name, Description } = req.body
   const updateExerciseQuery = "UPDATE Exercises SET Name = ?, Description = ? WHERE ExerciseID = ?";
@@ -303,6 +349,19 @@ app.delete('/ExerciseBodyPart', (req, res) => {
       res.json({ message: "exercise body part deleted successfully" });
     });
   });
+
+  app.delete('/UserWorkout', (req, res) => {
+    const { ID } = req.body;
+    const deleteUserWorkoutQuery = "DELETE FROM UsersWorkouts WHERE ID = ?";
+    db.query(deleteUserWorkoutQuery, [ID], (err, result) => {
+      if (err) {
+        res.status(500).send('Error deleting user workout');
+        return;
+      }
+      res.json({ message: "User workout deleted successfully" });
+    });
+  });
+  
 // Catch all other routes and return the index.html file from React app
 // app.get('*', (req, res) => {
 //   res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
