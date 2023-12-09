@@ -53,7 +53,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	}
 
 	const falsyEntity = () => {
-		for (k of attr_header) {
+		for (let k of attr_header) {
 			if (!ent[k] && k != 'BodyPartID') {
 				return true
 			}
@@ -63,8 +63,8 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 
 	useEffect(() => {
 		const handleGet = async () => {
-			const response1 = await axios.get(`${fk_path_dict[0][1]}`);
-			const response2 = await axios.get(`${fk_path_dict[1][1]}`);
+			const response1 = await axios.get(`${fk_path_arr[0][1]}`);
+			const response2 = await axios.get(`${fk_path_arr[1][1]}`);
 			setfkTable1(response1.data);
 			setfkTable2(response2.data);
 			if (fk1 == "BodyPartID") fkTable1[null] = "None";

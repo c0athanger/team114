@@ -32,7 +32,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	}
 
 	const falsyEntity = () => {
-		for (k of attr_header) {
+		for (let k of attr_header) {
 			if (!ent[k]) {
 				return true
 			}
