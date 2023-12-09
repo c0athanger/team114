@@ -96,6 +96,7 @@ app.get('/User', (req, res) => {
 });
 
 app.get('/UsersWorkout', (req, res) => {
+  console.log("GET usersworkouts");
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM UsersWorkouts WHERE ID LIKE ?";
   db.query(query, [`%${searchTerm}%`], (err, users) => {
@@ -110,6 +111,7 @@ app.get('/UsersWorkout', (req, res) => {
 });
 
 app.get('/ExerciseBodyPart', (req, res) => {
+  console.log("GET ExerciseBodyPart");
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM ExerciseBodyParts WHERE ID LIKE ?";
   db.query(query, [`%${searchTerm}%`], (err, users) => {
