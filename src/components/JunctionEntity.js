@@ -179,7 +179,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 									</label>
 								</td>
 							)
-						}}
+						})}
 					</tr>
 				</tbody>
 			</table>
