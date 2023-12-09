@@ -71,6 +71,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		for (let e of data) {
 			temp[e[fk]] = e[name_key]
 		}
+		console.log(temp);
 		f({ ...temp })
 	}
 
@@ -168,7 +169,8 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 							}
 						})}
 
-						<td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
+						{/* <td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td> */}
+						<td><button onClick={() => { console.log(fkTableOne) }}>Save</button></td>
 					</tr>
 				</tbody>
 			</table>
