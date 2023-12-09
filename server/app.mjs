@@ -95,7 +95,7 @@ app.get('/User', (req, res) => {
   });
 });
 
-app.get('/UserWorkoutPairs', (req, res) => {
+app.get('/UserWorkout', (req, res) => {
   const query = `
     SELECT UsersWorkouts.ID, Users.Username AS UserName, Workouts.Name AS WorkoutName
     FROM UsersWorkouts
@@ -112,7 +112,7 @@ app.get('/UserWorkoutPairs', (req, res) => {
   });
 });
 
-app.get('/ExerciseBodyPartPairs', (req, res) => {
+app.get('/ExerciseBodyPart', (req, res) => {
   const query = `
     SELECT ExerciseBodyPart.ID, Exercises.Name AS ExerciseName, BodyParts.Name AS BodyPartName
     FROM ExerciseBodyPart
