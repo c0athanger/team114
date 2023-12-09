@@ -13,16 +13,13 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	const [def1, setDef1] = useState('');
 	const [def2, setDef2] = useState('');
 
-	const [fk_path_arr, ___] = useState([
-		[fk1, `/${fk1}`],
-		[fk2, `/${fk2}`]
-	])
 
 
 	const fk_path = {
 		BodyPartID: "/BodyPart",
 		UserID: "/User",
-		WorkoutID: "/Workout"
+		WorkoutID: "/Workout",
+		ExerciseID: "/Exercise",
 	}
 
 
@@ -49,13 +46,13 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 
 	const handleFK1 = (e) => {
 		let temp = { ...ent };
-		temp['IsUpperBody'] = e.target.value;
+		temp[fk1] = e.target.value;
 		setEnt(temp);
 	}
 
 	const handleFK2 = (e) => {
 		let temp = { ...ent };
-		temp['IsUpperBody'] = e.target.value;
+		temp[fk2] = e.target.value;
 		setEnt(temp);
 	}
 
@@ -68,12 +65,21 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		return false
 	}
 
+	const parseNames = (data, fk) => {
+		let temp = {};
+		let name_key = fk == 'UserID' ? 'Username' : 'Name';
+		for (let e of data) {
+			temp[e[fk]] = e[name_key]
+		}
+		return temp;
+	}
+
 	useEffect(() => {
 		const handleGet = async () => {
-			const response1 = await axios.get(`${fk_path_arr[0][1]}`);
-			const response2 = await axios.get(`${fk_path_arr[1][1]}`);
-			setfkTable1(response1.data);
-			setfkTable2(response2.data);
+			const response1 = await axios.get(fk_path[fk1]);
+			const response2 = await axios.get(fk_path[fk2]);
+			setfkTable1(parseNames(response1.data, fk1));
+			setfkTable2(parseNames(response2.data, fk2));
 			if (fk1 == "BodyPartID") fkTable1[null] = "None";
 			if (fk2 == "BodyPartID") fkTable2[null] = "None";
 			setDef1(Object.keys(fkTable1)[0]);
