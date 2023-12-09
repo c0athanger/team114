@@ -8,8 +8,8 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	const [fk2, __] = useState(attr[attr.length - 2]);
 	const [attr_header, setHeader] = useState(function () { let temp = [...attr]; temp.shift(); return temp }());
 	const [ent, setEnt] = useState({ ...entity });
-	const [fkTable1, setfkTable1] = useState({});
-	const [fkTable2, setfkTable2] = useState({});
+	const [fkTableOne, setfkTableOne] = useState({});
+	const [fkTableTwo, setfkTableTwo] = useState({});
 	const [def1, setDef1] = useState('');
 	const [def2, setDef2] = useState('');
 
@@ -85,16 +85,16 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			let temp = parseNames(response1.data, fk1);
 			console.log("here:")
 			console.log(temp);
-			setfkTable1({ ...temp })
+			setfkTableOne({ ...temp })
 			temp = parseNames(response2.data, fk2);
-			setfkTable2({ ...temp });
+			setfkTableTwo({ ...temp });
 			console.log('Tables: ')
-			console.log(fkTable1)
-			console.log(fkTable2)
-			if (fk1 == "BodyPartID") fkTable1[null] = "None";
-			if (fk2 == "BodyPartID") fkTable2[null] = "None";
-			setDef1(Object.keys(fkTable1)[0]);
-			setDef2(Object.keys(fkTable2)[0]);
+			console.log(fkTableOne)
+			console.log(fkTableTwo)
+			if (fk1 == "BodyPartID") fkTableOne[null] = "None";
+			if (fk2 == "BodyPartID") fkTableTwo[null] = "None";
+			setDef1(Object.keys(fkTableOne)[0]);
+			setDef2(Object.keys(fkTableTwo)[0]);
 		}
 		handleGet().catch(console.error);
 	}, [])
@@ -136,9 +136,9 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
-											<select value={fkTable1[def1]} onChange={handleFK1}>
-												{Object.keys(fkTable1).map((fk, index) => {
-													<option value={fk}>{fkTable1[fk]}</option>
+											<select value={fkTableOne[def1]} onChange={handleFK1}>
+												{Object.keys(fkTableOne).map((fk, index) => {
+													<option value={fk}>{fkTableOne[fk]}</option>
 												})}
 											</select>
 										</label>
@@ -149,9 +149,9 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
-											<select value={fkTable2[def2]} onChange={handleFK2}>
-												{Object.keys(fkTable2).map((fk, index) => {
-													<option value={fk}>{fkTable2[fk]}</option>
+											<select value={fkTableTwo[def2]} onChange={handleFK2}>
+												{Object.keys(fkTableTwo).map((fk, index) => {
+													<option value={fk}>{fkTableTwo[fk]}</option>
 												})}
 											</select>
 										</label>
