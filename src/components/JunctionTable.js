@@ -40,6 +40,7 @@ const Table = ({ attr, rt, name, fk }) => {
 	}
 
 	const handleSearch = async () => {
+		console.log(`${rt}?search=${search}`)
 		const response = await axios.get(`${rt}?search=${search}`);
 		setQuery(response.data)
 	}
@@ -50,6 +51,7 @@ const Table = ({ attr, rt, name, fk }) => {
 
 	useEffect(() => {
 		const handleSearchEffect = async () => {
+			console.log(`${rt}?search=${search}`)
 			const response = await axios.get(`${rt}?search=${search}`);
 			setQuery(response.data)
 		}

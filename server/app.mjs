@@ -168,9 +168,9 @@ app.post('/Workout', (req, res) => {
 });
 
 app.post('/User', (req, res) => {
-  const { Username,Email,Password } = req.body;
+  const { Username, Email, Password } = req.body;
   const insertUserQuery = "INSERT INTO Users (Username,Email,Password) VALUES (?, ?, ?)";
-  db.query(insertUserQuery, [Username,Email,Password ], (err, result) => {
+  db.query(insertUserQuery, [Username, Email, Password], (err, result) => {
     if (err) {
       res.status(500).send('Error adding new user');
       return;
@@ -181,9 +181,9 @@ app.post('/User', (req, res) => {
 
 
 app.post('/ExerciseBodyPart', (req, res) => {
-  const { ExerciseID,BodyPartID} = req.body;
+  const { ExerciseID, BodyPartID } = req.body;
   const insertExerciseBodyPartQuery = "INSERT INTO ExerciseBodyPart (ExerciseID,BodyPartID) VALUES (?, ?)";
-  db.query(insertExerciseBodyPartQuery, [ExerciseID,BodyPartID ], (err, result) => {
+  db.query(insertExerciseBodyPartQuery, [ExerciseID, BodyPartID], (err, result) => {
     if (err) {
       res.status(500).send('Error adding new exercise body part');
       return;
@@ -240,7 +240,7 @@ app.put('/Workout', (req, res) => {
 
 
 app.put('/User', (req, res) => {
-  const { UserID, Username, Email, Password} = req.body
+  const { UserID, Username, Email, Password } = req.body
   const updateUserQuery = "UPDATE Users SET Username = ?, Email = ?, Password = ? WHERE UserID = ?";
   db.query(updateUserQuery, [Username, Email, Password, UserID], (err, result) => {
     if (err) {
@@ -252,9 +252,9 @@ app.put('/User', (req, res) => {
 });
 
 app.put('/ExerciseBodyPart', (req, res) => {
-  const {ID,ExerciseID,BodyPartID } = req.body
+  const { ID, ExerciseID, BodyPartID } = req.body
   const updateExerciseBodyPartQuery = "UPDATE ExerciseBodyPart SET ExerciseID = ?, BodyPartID = ? WHERE ID = ?";
-  db.query(updateExerciseBodyPartQuery, [ExerciseID,BodyPartID,ID], (err, result) => {
+  db.query(updateExerciseBodyPartQuery, [ExerciseID, BodyPartID, ID], (err, result) => {
     if (err) {
       res.status(500).send('Error updating Exercise body part');
       return;
@@ -341,14 +341,14 @@ app.delete('/User', (req, res) => {
 app.delete('/ExerciseBodyPart', (req, res) => {
   const { ID } = req.body;
   const deleteQuery = "DELETE FROM ExerciseBodyParts WHERE ID = ?";
-    db.query(deleteQuery, [ID], (err, result) => {
-      if (err) {
-        res.status(500).send('Error deleting exercise body part');
-        return;
-      }
-      res.json({ message: "exercise body part deleted successfully" });
-    });
+  db.query(deleteQuery, [ID], (err, result) => {
+    if (err) {
+      res.status(500).send('Error deleting exercise body part');
+      return;
+    }
+    res.json({ message: "exercise body part deleted successfully" });
   });
+});
 
   app.delete('/UsersWorkout', (req, res) => {
     const { ID } = req.body;
@@ -367,7 +367,7 @@ app.delete('/ExerciseBodyPart', (req, res) => {
 //   res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
 // });
 
-const PORT = 9007;
+const PORT = 9009;
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
