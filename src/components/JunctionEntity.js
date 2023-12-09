@@ -143,6 +143,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								)
 							}
 							else if (attribute == fk2) {
+								console.log(fkTableTwo);
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
