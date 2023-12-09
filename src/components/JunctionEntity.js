@@ -6,12 +6,10 @@ import axios from '../axios';
 const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	const [fk1, _] = useState(attr[attr.length - 1]);
 	const [fk2, __] = useState(attr[attr.length - 2]);
-	const [attr_header, setHeader] = useState(function () { let temp = [...attr]; temp.shift(); return temp }());
+	const [attr_header, setHeader] = useState([]);
 	const [ent, setEnt] = useState({ ...entity });
 	const [fkTableOne, setfkTableOne] = useState({});
 	const [fkTableTwo, setfkTableTwo] = useState({});
-	const [def1, setDef1] = useState('');
-	const [def2, setDef2] = useState('');
 
 
 
@@ -71,6 +69,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		for (let e of data) {
 			temp[e[fk]] = e[name_key]
 		}
+		if (fk == "BodyPartID") temp[null] = "None";
 		f({ ...temp })
 	}
 
@@ -78,21 +77,32 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		const handleGet = async () => {
 			const response1 = await axios.get(fk_path[fk1]);
 			const response2 = await axios.get(fk_path[fk2]);
-			console.log(`Getting responses`)
-			console.log(response1.data)
-			console.log(response2.data)
 			parseNames(response1.data, fk1, setfkTableOne);
-			parseNames(response1.data, fk1, setfkTableTwo);
-			console.log('Tables: ')
-			if (fk1 == "BodyPartID") fkTableOne[null] = "None";
-			if (fk2 == "BodyPartID") fkTableTwo[null] = "None";
-			setDef1(Object.keys(fkTableOne)[0]);
-			setDef2(Object.keys(fkTableTwo)[0]);
+			parseNames(response2.data, fk2, setfkTableTwo);
+			let temp = { ...ent }
+			if (temp[fk1] == null) {
+				if (fk1 == "BodyPartID") temp[fk1] = "None";
+				else {
+					temp[fk1] = response1.data[0][fk1]
+				}
+			}
+			if (temp[fk2] == null) {
+				if (fk2 == "BodyPartID") temp[fk2] = "None";
+				else {
+					temp[fk2] = response2.data[0][fk2]
+				}
+			}
+			console.log(temp)
+			setEnt({ ...temp })
+			setHeader(function () { let temp = [...attr]; temp.shift(); return temp }());
+
 		}
 		handleGet().catch(console.error);
-		console.log(fkTableOne)
-		console.log(fkTableTwo)
 	}, [])
+
+	useEffect(() => {
+
+	}, [fkTableOne, fkTableTwo]);
 
 	return (
 		<>
@@ -131,10 +141,10 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
-											<select value={fkTableOne[def1]} onChange={handleFK1}>
-												{Object.keys(fkTableOne).map((fk, index) => {
+											<select value={ent[attribute]} onChange={handleFK1}>
+												{Object.keys(fkTableOne).map((fk, ind) => (
 													<option value={fk}>{fkTableOne[fk]}</option>
-												})}
+												))}
 											</select>
 										</label>
 									</td>
@@ -144,10 +154,10 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
-											<select value={fkTableTwo[def2]} onChange={handleFK2}>
-												{Object.keys(fkTableTwo).map((fk, index) => {
+											<select value={ent[attribute]} onChange={handleFK2}>
+												{Object.keys(fkTableTwo).map((fk, ind) => (
 													<option value={fk}>{fkTableTwo[fk]}</option>
-												})}
+												))}
 											</select>
 										</label>
 									</td>

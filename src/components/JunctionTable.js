@@ -54,7 +54,8 @@ const Table = ({ attr, rt, name, fk }) => {
 		const handleSearchEffect = async () => {
 			console.log(`${rt}?search=${search}`)
 			const response = await axios.get(`${rt}?search=${search}`);
-			setQuery(response.data)
+			setQuery(response.data);
+			console.log(query)
 			console.log(response.data)
 		}
 		setIsUpdate(0); setSearch(''); setExDefault({});

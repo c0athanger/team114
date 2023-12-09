@@ -52,11 +52,11 @@ CREATE TABLE Exercises (
 -- Create a table to link Workouts with Exercises (many-to-many relationship)
 CREATE TABLE WorkoutExercises (
     ID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    WorkoutID INT NOT NULL,
-    ExerciseID INT NOT NULL,
     Sets INT NOT NULL,
     Reps INT NOT NULL,
     Intensity DECIMAL(2,2) NOT NULL,
+    WorkoutID INT NOT NULL,
+    ExerciseID INT NOT NULL,
     FOREIGN KEY (WorkoutID) REFERENCES Workouts(WorkoutID) ON DELETE CASCADE,
     FOREIGN KEY (ExerciseID) REFERENCES Exercises(ExerciseID) ON DELETE CASCADE
 );

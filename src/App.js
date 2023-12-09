@@ -12,7 +12,7 @@ import axios from 'axios'
 
 const App = () => {
 
-  const ALLTABLES = ['Exercises', 'BodyParts', 'Workouts', 'Users', 'UsersWorkouts']
+  const ALLTABLES = ['Exercises', 'BodyParts', 'Workouts', 'Users', 'UsersWorkouts', 'WorkoutExercises', 'ExerciseBodyParts']
   const [all_attr, setAttr] = useState({});
 
   const get_attr_request = async (table_name) => {
@@ -45,6 +45,8 @@ const App = () => {
         <Route path="/Workouts" element={<Table attr={all_attr['Workouts']} rt="/Workout" name="Workout" />} />
         <Route path="/Users" element={<Table attr={all_attr['Users']} rt="/User" name="User" />} />
         <Route path="/UsersWorkouts" element={<JunctionTable attr={all_attr['UsersWorkouts']} rt="/UsersWorkout" name="UsersWorkout" />} />
+        <Route path="/WorkoutExercises" element={<JunctionTable attr={all_attr['WorkoutExercises']} rt="/WorkoutExercise" name="WorkoutExercise" />} />
+        <Route path="/ExerciseBodyParts" element={<JunctionTable attr={all_attr['ExerciseBodyParts']} rt="/ExerciseBodyPart" name="ExerciseBodyPart" />} />
       </Route>
     </Routes>
   );
