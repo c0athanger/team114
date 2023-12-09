@@ -78,8 +78,14 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		const handleGet = async () => {
 			const response1 = await axios.get(fk_path[fk1]);
 			const response2 = await axios.get(fk_path[fk2]);
+			console.log(`Getting responses`)
+			console.log(response1.data)
+			console.log(response2.data)
 			setfkTable1(parseNames(response1.data, fk1));
 			setfkTable2(parseNames(response2.data, fk2));
+			console.log('Tables: ')
+			console.log(fkTable1)
+			console.log(fkTable2)
 			if (fk1 == "BodyPartID") fkTable1[null] = "None";
 			if (fk2 == "BodyPartID") fkTable2[null] = "None";
 			setDef1(Object.keys(fkTable1)[0]);
