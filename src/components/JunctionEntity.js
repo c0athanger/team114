@@ -65,14 +65,13 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 		return false
 	}
 
-	const parseNames = (data, fk) => {
+	const parseNames = (data, fk, f) => {
 		let temp = {};
 		let name_key = fk == 'UserID' ? 'Username' : 'Name';
 		for (let e of data) {
 			temp[e[fk]] = e[name_key]
 		}
-		console.log(temp)
-		return temp;
+		f({ ...temp })
 	}
 
 	useEffect(() => {
@@ -82,12 +81,8 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			console.log(`Getting responses`)
 			console.log(response1.data)
 			console.log(response2.data)
-			let temp = parseNames(response1.data, fk1);
-			console.log("here:")
-			console.log(temp);
-			setfkTableOne({ ...temp })
-			temp = parseNames(response2.data, fk2);
-			setfkTableTwo({ ...temp });
+			parseNames(response1.data, fk1, setfkTableOne);
+			parseNames(response1.data, fk1, setfkTableTwo);
 			console.log('Tables: ')
 			console.log(fkTableOne)
 			console.log(fkTableTwo)
