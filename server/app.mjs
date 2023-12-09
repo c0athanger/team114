@@ -96,36 +96,29 @@ app.get('/User', (req, res) => {
 });
 
 app.get('/UsersWorkout', (req, res) => {
-  const query = `
-    SELECT UsersWorkouts.ID, Users.Username AS UserName, Workouts.Name AS WorkoutName
-    FROM UsersWorkouts
-    JOIN Users ON UsersWorkouts.UserID = Users.UserID
-    JOIN Workouts ON UsersWorkouts.WorkoutID = Workouts.WorkoutID`;
-    
-  db.query(query, (err, results) => {
+  const searchTerm = req.query.search || '';
+  const query = "SELECT * FROM UsersWorkouts WHERE ID LIKE ?";
+  db.query(query, [`%${searchTerm}%`], (err, users) => {
     if (err) {
-      console.error('Error fetching user workout pairings', err);
-      res.status(500).send('Error fetching user workout pairings');
+      console.error('Error fetching users', err);
+      res.status(500).send('Error fetching users');
       return;
     }
-    res.json(results);
+
+    res.json(users);
   });
 });
 
 app.get('/ExerciseBodyPart', (req, res) => {
-  const query = `
-    SELECT ExerciseBodyPart.ID, Exercises.Name AS ExerciseName, BodyParts.Name AS BodyPartName
-    FROM ExerciseBodyPart
-    JOIN Exercises ON ExerciseBodyPart.ExerciseID = Exercises.ExerciseID
-    JOIN BodyParts ON ExerciseBodyPart.BodyPartID = BodyParts.BodyPartID`;
-
-  db.query(query, (err, results) => {
+  const searchTerm = req.query.search || '';
+  const query = "SELECT * FROM ExerciseBodyParts WHERE ID LIKE ?";
+  db.query(query, [`%${searchTerm}%`], (err, users) => {
     if (err) {
-      console.error('Error fetching exercise body part pairings', err);
-      res.status(500).send('Error fetching exercise body part pairings');
+      console.error('Error fetching users', err);
+      res.status(500).send('Error fetching users');
       return;
     }
-    res.json(results);
+    res.json(users);
   });
 });
 
