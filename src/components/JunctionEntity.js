@@ -70,7 +70,12 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			temp[e[fk]] = e[name_key]
 		}
 		if (fk == "BodyPartID") temp[null] = "None";
-		if (ent[fk] == null) setEnt(function () { let temp = { ...ent }; temp[fk] = Object.keys(temp)[0]; setEnt({ ...temp }); }());
+		if (ent[fk] == null) {
+			let temp = { ...ent };
+			temp[fk] = Object.keys(temp)[0];
+			console.log(temp);
+			setEnt({ ...temp });
+		}
 		console.log(temp);
 		f({ ...temp })
 	}
