@@ -134,23 +134,22 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 									<td key={index}>
 										<label for="idname" className="required">
 											<select value={Object.keys(fkTableOne)[0]} onChange={handleFK1}>
-												{Object.keys(fkTableOne).map((fk, index) => {
+												{Object.keys(fkTableOne).map((fk, index) => (
 													<option value={fk}>{fkTableOne[fk]}</option>
-												})}
+												))}
 											</select>
 										</label>
 									</td>
 								)
 							}
 							else if (attribute == fk2) {
-								console.log(fkTableTwo);
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
 											<select value={Object.keys(fkTableTwo)[0]} onChange={handleFK2}>
-												{Object.keys(fkTableTwo).map((fk, index) => {
+												{Object.keys(fkTableTwo).map((fk, index) => (
 													<option value={fk}>{fkTableTwo[fk]}</option>
-												})}
+												))}
 											</select>
 										</label>
 									</td>
@@ -167,8 +166,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 							}
 						})}
 
-						{/* <td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td> */}
-						<td><button onClick={() => { console.log(fkTableOne) }}>Save</button></td>
+						<td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
 					</tr>
 				</tbody>
 			</table>
