@@ -136,7 +136,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
-											<select value={fkTableOne[def1]} onChange={handleFK1}>
+											<select value={Object.keys(fkTableOne)[0]} onChange={handleFK1}>
 												{Object.keys(fkTableOne).map((fk, index) => {
 													<option value={fk}>{fkTableOne[fk]}</option>
 												})}
@@ -149,7 +149,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								return (
 									<td key={index}>
 										<label for="idname" className="required">
-											<select value={fkTableTwo[def2]} onChange={handleFK2}>
+											<select value={Object.keys(fkTableOne)[0]} onChange={handleFK2}>
 												{Object.keys(fkTableTwo).map((fk, index) => {
 													<option value={fk}>{fkTableTwo[fk]}</option>
 												})}
