@@ -6,12 +6,10 @@ import axios from '../axios';
 const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	const [fk1, _] = useState(attr[attr.length - 1]);
 	const [fk2, __] = useState(attr[attr.length - 2]);
-	const [attr_header, setHeader] = useState(function () { let temp = [...attr]; temp.shift(); return temp }());
+	const [attr_header, setHeader] = useState([]);
 	const [ent, setEnt] = useState({ ...entity });
 	const [fkTableOne, setfkTableOne] = useState({});
 	const [fkTableTwo, setfkTableTwo] = useState({});
-	const [def1, setDef1] = useState('');
-	const [def2, setDef2] = useState('');
 
 
 
@@ -89,15 +87,14 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			console.log(fkTableTwo)
 			// if (fk1 == "BodyPartID") fkTableOne[null] = "None";
 			// if (fk2 == "BodyPartID") fkTableTwo[null] = "None";
-			setDef1(Object.keys(fkTableOne)[0]);
-			setDef2(Object.keys(fkTableTwo)[0]);
+			setHeader(function () { let temp = [...attr]; temp.shift(); return temp }());
 		}
 		handleGet().catch(console.error);
 	}, [])
 
 	useEffect(() => {
 
-	}, [fkTableOne, fkTableTwo])
+	}, [fkTableOne, fkTableTwo]);
 
 	return (
 		<>
@@ -171,15 +168,6 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 
 						{/* <td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td> */}
 						<td><button onClick={() => { console.log(fkTableOne) }}>Save</button></td>
-						{Object.keys(fkTableOne).map((attribute, index) => {
-							return (
-								<td key={index}>
-									<label for="idname" className="required">
-										<input type="text" id="idname" placeholder="Enter value here" value={ent[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target.value; setEnt(en) }}></input>
-									</label>
-								</td>
-							)
-						})}
 					</tr>
 				</tbody>
 			</table>
