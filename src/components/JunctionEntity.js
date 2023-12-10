@@ -65,11 +65,11 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 
 	const parseNames = (data, fk, f) => {
 		let temp = {};
+		if (fk == "BodyPartID") temp[null] = null;
 		let name_key = fk == 'UserID' ? 'Username' : 'Name';
 		for (let e of data) {
 			temp[e[fk]] = e[name_key]
 		}
-		if (fk == "BodyPartID") temp[null] = "None";
 		f({ ...temp })
 	}
 
@@ -81,13 +81,13 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			parseNames(response2.data, fk2, setfkTableTwo);
 			let temp = { ...ent }
 			if (temp[fk1] == null) {
-				if (fk1 == "BodyPartID") temp[fk1] = "None";
+				if (fk1 == "BodyPartID") temp[fk1] = null;
 				else {
 					temp[fk1] = response1.data[0][fk1]
 				}
 			}
 			if (temp[fk2] == null) {
-				if (fk2 == "BodyPartID") temp[fk2] = "None";
+				if (fk2 == "BodyPartID") temp[fk2] = null;
 				else {
 					temp[fk2] = response2.data[0][fk2]
 				}
