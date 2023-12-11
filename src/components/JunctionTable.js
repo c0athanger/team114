@@ -4,7 +4,7 @@ import axios from '../axios'
 import { useLocation } from 'react-router-dom';
 import { BlocksWave } from "react-svg-spinners"
 
-const Table = ({ attr, rt, name, fk }) => {
+const Table = ({ attr, rt, name }) => {
 
 
 	const location = useLocation();
