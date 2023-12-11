@@ -426,7 +426,7 @@ app.delete('/WorkoutExercise', (req, res) => {
 
 //Catch all other routes and return the index.html file from React app
 app.get('*', (req, res) => {
-  res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
+  res.sendFile('/build/index.html');
 });
 
 app.listen(PORT, () => {
