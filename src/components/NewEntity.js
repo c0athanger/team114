@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import AddBodypart from './AddBodypart';
 
 
 const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {

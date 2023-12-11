@@ -2,13 +2,10 @@ import './App.css';
 import React, { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
-import Users from './components/Users'
-import Exercises from './components/Exercises';
-import Workouts from './components/Workouts';
-import Bodyparts from './components/Bodyparts';
 import Table from './components/Table';
 import JunctionTable from './components/JunctionTable'
 import axios from 'axios'
+import { BlocksWave } from "react-svg-spinners"
 
 const App = () => {
 
@@ -54,7 +51,9 @@ const App = () => {
           </Route>
         </Routes>
         :
-        <></>
+        <>
+          <BlocksWave color={"orange"} />
+        </>
       }
     </>
   );

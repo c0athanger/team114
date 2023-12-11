@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import AddBodypart from './AddBodypart';
 import axios from '../axios';
 
 
