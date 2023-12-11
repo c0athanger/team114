@@ -215,10 +215,16 @@ th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #04AA6D;
+  background-color: var(--RoseGold);
   color: white;
 }
 
 .centerme {
+  display: flex;
+}
+
+.centermeinside {
+
+  display: flex;
   justify-content: center;
 }
