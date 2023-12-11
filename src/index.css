@@ -167,10 +167,9 @@ form {
 
 
 
-< !-- HTML !--><button class="button-56" role="button">Button 56</button>
 
 /* CSS */
-.button-56 {
+button {
   align-items: center;
   background-color: #fee6e3;
   border: 2px solid #111;
@@ -194,7 +193,7 @@ form {
   touch-action: manipulation;
 }
 
-.button-56:after {
+button:after {
   background-color: #111;
   border-radius: 8px;
   content: "";
@@ -209,21 +208,21 @@ form {
   z-index: -1;
 }
 
-.button-56:hover:after {
+button:hover:after {
   transform: translate(0, 0);
 }
 
-.button-56:active {
+button:active {
   background-color: #ffdeda;
   outline: 0;
 }
 
-.button-56:hover {
+button:hover {
   outline: 0;
 }
 
 @media (min-width: 768px) {
-  .button-56 {
+  button {
     padding: 0 40px;
   }
 }
