@@ -1,6 +1,14 @@
 // const express = require('express');
 // const path = require('path');
 // const mysql = require('mysql');
+
+
+// Citation for the following function: mysql.createConnection
+// Date: 12/10/2023
+// Based on the guide provided in activity 2
+// reused the function but added my information.
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%205%20-%20Adding%20New%20Data/README.md
+
 import path from 'path';
 import mysql from 'mysql';
 import express from 'express'
@@ -24,6 +32,7 @@ app.use(express.static('../build'));
 
 app.use(express.json());
 
+
 app.get('/Attribute', (req, res) => {
   const searchTerm = req.query.search;
   const query = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'${searchTerm}'`
@@ -41,20 +50,14 @@ app.get('/Attribute', (req, res) => {
   })
 })
 
-app.get('/Exercise', (req, res) => {
-  const searchTerm = req.query.search || '';
-  const query = "SELECT * FROM Exercises WHERE Name LIKE ?";
-  db.query(query, [`%${searchTerm}%`], (err, exercises) => {
-    if (err) {
-      console.error('Error fetching exercises', err);
-      res.status(500).send('Error fetching exercises');
-      return;
-    }
 
-    res.json(exercises);
-  });
-});
-
+// This route handles GET requests for '/BodyPart'. 
+// It retrieves a list of body parts from the database. 
+// An optional 'search' query parameter can be used to filter body parts by their names.
+// If a 'search' term is provided, it returns body parts that contain this term in their names.
+// If no search term is provided, it returns all of them
+// Note: Detailed comments are only provided for the initial route handlers as the logic is 
+// the same for all other GET requests
 app.get('/BodyPart', (req, res) => {
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM BodyParts WHERE Name LIKE ?";
@@ -66,6 +69,20 @@ app.get('/BodyPart', (req, res) => {
     }
 
     res.json(bodyParts);
+  });
+});
+
+app.get('/Exercise', (req, res) => {
+  const searchTerm = req.query.search || '';
+  const query = "SELECT * FROM Exercises WHERE Name LIKE ?";
+  db.query(query, [`%${searchTerm}%`], (err, exercises) => {
+    if (err) {
+      console.error('Error fetching exercises', err);
+      res.status(500).send('Error fetching exercises');
+      return;
+    }
+
+    res.json(exercises);
   });
 });
 app.get('/Workout', (req, res) => {
@@ -138,17 +155,11 @@ app.get('/WorkoutExercise', (req, res) => {
   });
 });
 
-app.post('/Exercise', (req, res) => {
-  const { Name, Description } = req.body;
-  const insertExerciseQuery = "INSERT INTO Exercises (Name, Description) VALUES (?, ?)";
-  db.query(insertExerciseQuery, [Name, Description], (err, result) => {
-    if (err) {
-      res.status(500).send('Error adding new exercise');
-      return;
-    }
-    res.status(201).json({ message: "Exercise created successfully", exerciseID: result.insertId });
-  });
-});
+// This route handles POST requests to '/BodyPart'.
+// It adds a new body part to the database.
+// The request body must contain the 'Name' and 'IsUpperBody' fields.
+// 'Name' represents the name of the body part, and 'IsUpperBody' indicates if it is an upper body part.
+// If added succesfully, it sends back a confirmation message along with the ID of the new body part.
 
 app.post('/BodyPart', (req, res) => {
   const { Name, IsUpperBody } = req.body;
@@ -160,6 +171,18 @@ app.post('/BodyPart', (req, res) => {
       return;
     }
     res.status(201).json({ message: "Body part created successfully", bodyPartID: result.insertId });
+  });
+});
+
+app.post('/Exercise', (req, res) => {
+  const { Name, Description } = req.body;
+  const insertExerciseQuery = "INSERT INTO Exercises (Name, Description) VALUES (?, ?)";
+  db.query(insertExerciseQuery, [Name, Description], (err, result) => {
+    if (err) {
+      res.status(500).send('Error adding new exercise');
+      return;
+    }
+    res.status(201).json({ message: "Exercise created successfully", exerciseID: result.insertId });
   });
 });
 
@@ -190,8 +213,15 @@ app.post('/User', (req, res) => {
 
 app.post('/ExerciseBodyPart', (req, res) => {
   const { ExerciseID, BodyPartID } = req.body;
+  // The if statement below checks if the bodypartID received is null
+  let bodyPartIdValue
+  if (BodyPartID === 'null' || BodyPartID === null) {
+    bodyPartIdValue = null;
+  } else {
+    bodyPartIdValue = BodyPartID;
+  }
   const insertExerciseBodyPartQuery = "INSERT INTO ExerciseBodyParts (ExerciseID,BodyPartID) VALUES (?, ?)";
-  db.query(insertExerciseBodyPartQuery, [ExerciseID, BodyPartID], (err, result) => {
+  db.query(insertExerciseBodyPartQuery, [ExerciseID, bodyPartIdValue], (err, result) => {
     if (err) {
       res.status(500).send('Error adding new exercise body part');
       return;
@@ -224,17 +254,13 @@ app.post('/WorkoutExercise', (req, res) => {
   });
 });
 
-app.put('/Exercise', (req, res) => {
-  const { ExerciseID, Name, Description } = req.body
-  const updateExerciseQuery = "UPDATE Exercises SET Name = ?, Description = ? WHERE ExerciseID = ?";
-  db.query(updateExerciseQuery, [Name, Description, ExerciseID], (err, result) => {
-    if (err) {
-      res.status(500).send('Error updating exercise');
-      return;
-    }
-    res.json({ message: "Exercise updated successfully" });
-  });
-});
+
+// This route handles PUT requests to '/BodyPart'.
+// It updates the values of an existing body part in the database.
+// The request body should include 'BodyPartID' to select the right body part, 
+// and the new 'Name' and 'IsUpperBody' values for the update.
+// The route updates the specified body part and sends a message if done succesfully.
+
 app.put('/BodyPart', (req, res) => {
   const { BodyPartID, Name, IsUpperBody } = req.body
   const updateBodyPartQuery = "UPDATE BodyParts SET Name = ?, IsUpperBody = ? WHERE BodyPartID = ?";
@@ -246,6 +272,19 @@ app.put('/BodyPart', (req, res) => {
     res.json({ message: "Body part updated successfully" });
   });
 });
+
+app.put('/Exercise', (req, res) => {
+  const { ExerciseID, Name, Description } = req.body
+  const updateExerciseQuery = "UPDATE Exercises SET Name = ?, Description = ? WHERE ExerciseID = ?";
+  db.query(updateExerciseQuery, [Name, Description, ExerciseID], (err, result) => {
+    if (err) {
+      res.status(500).send('Error updating exercise');
+      return;
+    }
+    res.json({ message: "Exercise updated successfully" });
+  });
+});
+
 
 app.put('/Workout', (req, res) => {
   const { WorkoutID, Name, Description } = req.body
@@ -274,8 +313,14 @@ app.put('/User', (req, res) => {
 
 app.put('/ExerciseBodyPart', (req, res) => {
   const { ID, ExerciseID, BodyPartID } = req.body
+  let bodyPartIdValue
+  if (BodyPartID === 'null' || BodyPartID === null) {
+    bodyPartIdValue = null;
+  } else {
+    bodyPartIdValue = BodyPartID;
+  }
   const updateExerciseBodyPartQuery = "UPDATE ExerciseBodyParts SET ExerciseID = ?, BodyPartID = ? WHERE ID = ?";
-  db.query(updateExerciseBodyPartQuery, [ExerciseID, BodyPartID, ID], (err, result) => {
+  db.query(updateExerciseBodyPartQuery, [ExerciseID, bodyPartIdValue, ID], (err, result) => {
     if (err) {
       res.status(500).send('Error updating Exercise body part');
       return;
@@ -309,24 +354,11 @@ app.put('/WorkoutExercise', (req, res) => {
   });
 });
 
-app.delete('/Exercise', (req, res) => {
-  const { ExerciseID } = req.body;
-  const deleteJunctionQuery = "DELETE FROM ExerciseBodyParts WHERE ExerciseID = ?";
-  db.query(deleteJunctionQuery, [ExerciseID], (err, result) => {
-    if (err) {
-      res.status(500).send('Error deleting associated exercise in ExerciseBodyParts');
-      return;
-    }
-    const deleteQuery = "DELETE FROM Exercises WHERE ExerciseID = ?";
-    db.query(deleteQuery, [ExerciseID], (err, result) => {
-      if (err) {
-        res.status(500).send('Error deleting exercise');
-        return;
-      }
-      res.json({ message: "Exercise deleted successfully" });
-    });
-  });
-});
+// This route handles DELETE requests to '/BodyPart'.
+// After receiving the bodypartID it deletes data linked to that ID from the junction table 'ExerciseBodyParts'
+// It then removes the body part from the database.
+// The request body must include the 'BodyPartID' of the body part to be deleted.
+// It returns a confirmation message when deleted.
 app.delete('/BodyPart', (req, res) => {
   const { BodyPartID } = req.body;
   const deleteJunctionQuery = "DELETE FROM ExerciseBodyParts WHERE BodyPartID = ?";
@@ -342,6 +374,25 @@ app.delete('/BodyPart', (req, res) => {
         return;
       }
       res.json({ message: "Body part  deleted successfully" });
+    });
+  });
+});
+
+app.delete('/Exercise', (req, res) => {
+  const { ExerciseID } = req.body;
+  const deleteJunctionQuery = "DELETE FROM ExerciseBodyParts WHERE ExerciseID = ?";
+  db.query(deleteJunctionQuery, [ExerciseID], (err, result) => {
+    if (err) {
+      res.status(500).send('Error deleting associated exercise in ExerciseBodyParts');
+      return;
+    }
+    const deleteQuery = "DELETE FROM Exercises WHERE ExerciseID = ?";
+    db.query(deleteQuery, [ExerciseID], (err, result) => {
+      if (err) {
+        res.status(500).send('Error deleting exercise');
+        return;
+      }
+      res.json({ message: "Exercise deleted successfully" });
     });
   });
 });
