@@ -16,6 +16,26 @@ const Table = ({ attr, rt, name }) => {
 	const [query, setQuery] = useState([]);
 	const [isLoad, setLoad] = useState(false);
 
+	const [fkTableOne, setfkTableOne] = useState({});
+	const [fkTableTwo, setfkTableTwo] = useState({});
+
+	const fk_path = {
+		BodyPartID: "/BodyPart",
+		UserID: "/User",
+		WorkoutID: "/Workout",
+		ExerciseID: "/Exercise",
+	}
+
+	const parseNames = (data, fk, f) => {
+		let temp = {};
+		if (fk == "BodyPartID") temp[null] = null;
+		let name_key = fk == 'UserID' ? 'Username' : 'Name';
+		for (let e of data) {
+			temp[e[fk]] = e[name_key]
+		}
+		f({ ...temp })
+	}
+
 	const handleCreate = async (e) => {
 		console.log("req:"); console.log(e);
 		const response = await axios.post(rt, JSON.stringify(e), {
@@ -43,6 +63,10 @@ const Table = ({ attr, rt, name }) => {
 	const handleSearch = async () => {
 		console.log(`${rt}?search=${search}`)
 		const response = await axios.get(`${rt}?search=${search}`);
+		const response1 = await axios.get(fk_path[attr[attr.length - 2]]);
+		const response2 = await axios.get(fk_path[attr[attr.length - 1]]);
+		parseNames(response1.data, attr[attr.length - 2], setfkTableOne);
+		parseNames(response2.data, attr[attr.length - 1], setfkTableTwo);
 		setQuery(response.data)
 		setLoad(true);
 		console.log(response.data)
@@ -57,6 +81,10 @@ const Table = ({ attr, rt, name }) => {
 		const handleSearchEffect = async () => {
 			console.log(`${rt}?search=${search}`)
 			const response = await axios.get(`${rt}?search=${search}`);
+			const response1 = await axios.get(fk_path[attr[attr.length - 2]]);
+			const response2 = await axios.get(fk_path[attr[attr.length - 1]]);
+			parseNames(response1.data, attr[attr.length - 2], setfkTableOne);
+			parseNames(response2.data, attr[attr.length - 1], setfkTableTwo);
 			setQuery(response.data);
 			setLoad(true);
 			console.log(query)
@@ -108,20 +136,46 @@ const Table = ({ attr, rt, name }) => {
 					<table>
 						<thead>
 							<tr>
-								{attr.map((attribute, index) => (
-									<th key={index}>
-										{attribute}
-									</th>
-								))}
+								{attr.map((attribute, index) => {
+									if (index < attr.length - 2) return (
+										<th key={index}>
+											{attribute}
+										</th>
+									);
+									else return (
+										<>
+											<th key={index}>
+												{attribute}
+											</th>
+											<th key={index}>
+												{`${attribute.substring(0, attribute.length - 2)} Name`}
+											</th>
+										</>
+									)
+								})}
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
 							{query.map((entity, index) => (
 								<tr key={index}>
-									{attr.map((attribute, i) => (
-										<td>{entity[attribute] ? entity[attribute] : "None"}</td>
-									))}
+									{attr.map((attribute, i) => {
+										if (i < attr.length - 2) return (
+											<td>{entity[attribute] ? entity[attribute] : "None"}</td>
+										);
+										else if (i == attr.length - 2) return (
+											<>
+												<td>{entity[attribute] ? entity[attribute] : "None"}</td>
+												<td>{fkTableOne[entity[attribute]] ? fkTableOne[entity[attribute]] : "None"}</td>
+											</>
+										)
+										else return (
+											<>
+												<td>{entity[attribute] ? entity[attribute] : "None"}</td>
+												<td>{fkTableTwo[entity[attribute]] ? fkTableTwo[entity[attribute]] : "None"}</td>
+											</>
+										)
+									})}
 									<td>
 										<button onClick={(e) => { e.preventDefault(); editEntity(index) }}>Update</button>
 										<button onClick={(e) => { e.preventDefault(); handleDelete(index) }}>Delete</button>
