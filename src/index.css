@@ -207,10 +207,16 @@ button:hover {
   opacity: 1;
 }
 
-.tableitems {
+.tablediv {
+  flex-direction: column;
   display: flex;
   justify-content: center;
-  padding: auto;
+  align-items: center;
+}
+
+.tableitems {
+  display: flex;
+  padding: 10%;
 }
 
 td,
