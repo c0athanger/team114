@@ -94,7 +94,7 @@ const Table = ({ attr, rt, name }) => {
 	return (
 		<>
 			{!isUpdate && isLoad
-				? <div>
+				? <div className='tableitems'>
 					<button className='tableitems' onClick={addEntity}>Create new {name}</button>
 					<table className='tableitems'>
 						<thead>

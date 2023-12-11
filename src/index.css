@@ -192,9 +192,6 @@ button {
   opacity: 1;
 }
 
-div {
-  display: flex;
-}
 
 .entbutton:disabled {
   opacity: 0.5;
