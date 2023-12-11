@@ -192,6 +192,10 @@ button {
   opacity: 1;
 }
 
+div {
+  display: flex;
+}
+
 .entbutton:disabled {
   opacity: 0.5;
 }
@@ -207,6 +211,7 @@ button:hover {
 }
 
 .tableitems {
+  display: flex;
   justify-content: center;
   padding: auto;
 }
