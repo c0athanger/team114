@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { BlocksWave } from "react-svg-spinners"
 
 
 const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
