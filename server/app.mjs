@@ -24,10 +24,10 @@ const DATABASE = process.env.DATABASE
 const INDEX_PATH = process.env.INDEX_PATH
 
 const db = mysql.createConnection({
-  host: HOST,
-  user: USER,
-  password: PASS,
-  database: DATABASE
+  host: "classmysql.engr.oregonstate.edu",
+  user: "cs340_belingam",
+  password: '5282',
+  database: 'cs340_belingam'
 });
 
 // Serve static files from the React app
