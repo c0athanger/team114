@@ -51,9 +51,11 @@ const App = () => {
           </Route>
         </Routes>
         :
-        <div >
-          <BlocksWave width={100} height={100} color={"orange"} />
-        </div>
+        <main>
+          <div className="centermeinside">
+            <BlocksWave width={100} height={100} color={"orange"} />
+          </div>
+        </main>
       }
     </>
   );

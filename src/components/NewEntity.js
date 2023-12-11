@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { BlocksWave } from "react-svg-spinners"
 
 
-const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
+const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit, setTableLoad }) => {
 	const [pk, setPk] = useState(entity[attr[0]]);
 	const [attr_header, setHeader] = useState(function () { let temp = [...attr]; temp.shift(); return temp }());
 	const [ent, setEnt] = useState({ ...entity });
@@ -16,6 +16,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			setIsUpdate(false)
 			let temp = { ...ent };
 			delete temp[attr[0]];
+			setTableLoad(false);
 			handleSubmit(temp);
 		}
 		else {
@@ -54,6 +55,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								{attribute}
 							</th>
 						))}
+						<th></th>
 					</tr>
 				</thead>
 
@@ -84,7 +86,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 							}
 						})}
 
-						<td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
+						<td><button className='entbutton' disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
 					</tr>
 				</tbody>
 			</table>

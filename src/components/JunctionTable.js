@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import JunctionEntity from './JunctionEntity'
 import axios from '../axios'
 import { useLocation } from 'react-router-dom';
+import { BlocksWave } from "react-svg-spinners"
 
-const Table = ({ attr, rt, name, fk }) => {
+const Table = ({ attr, rt, name }) => {
 
 
 	const location = useLocation();
@@ -13,6 +14,7 @@ const Table = ({ attr, rt, name, fk }) => {
 	const [isNew, setIsNew] = useState(true);
 	const [isEdit, setEdit] = useState(0);
 	const [query, setQuery] = useState([]);
+	const [isLoad, setLoad] = useState(false);
 
 	const handleCreate = async (e) => {
 		console.log("req:"); console.log(e);
@@ -42,6 +44,7 @@ const Table = ({ attr, rt, name, fk }) => {
 		console.log(`${rt}?search=${search}`)
 		const response = await axios.get(`${rt}?search=${search}`);
 		setQuery(response.data)
+		setLoad(true);
 		console.log(response.data)
 	}
 
@@ -54,6 +57,7 @@ const Table = ({ attr, rt, name, fk }) => {
 			console.log(`${rt}?search=${search}`)
 			const response = await axios.get(`${rt}?search=${search}`);
 			setQuery(response.data);
+			setLoad(true);
 			console.log(query)
 			console.log(response.data)
 		}
@@ -97,8 +101,8 @@ const Table = ({ attr, rt, name, fk }) => {
 
 	return (
 		<>
-			{!isUpdate
-				? <div>
+			{!isUpdate && isLoad
+				? <div className='tableitems'>
 					<button onClick={addEntity}>Create new {name}</button>
 					<table>
 						<thead>
@@ -115,7 +119,7 @@ const Table = ({ attr, rt, name, fk }) => {
 							{query.map((entity, index) => (
 								<tr key={index}>
 									{attr.map((attribute, i) => (
-										<td>{entity[attribute]}</td>
+										<td>{entity[attribute] ? entity[attribute] : "None"}</td>
 									))}
 									<td>
 										<button onClick={(e) => { e.preventDefault(); editEntity(index) }}>Update</button>
@@ -126,10 +130,14 @@ const Table = ({ attr, rt, name, fk }) => {
 						</tbody>
 					</table>
 				</div>
-				:
-				<div>
-					<JunctionEntity entity={exDefault} attr={attr} handleSubmit={isNew ? handleCreate : handleUpdate} setIsUpdate={setIsUpdate} isEdit={isEdit} />
-				</div>
+				: isLoad
+					? <div>
+						<JunctionEntity entity={exDefault} attr={attr} handleSubmit={isNew ? handleCreate : handleUpdate} setIsUpdate={setIsUpdate} isEdit={isEdit} setTableLoad={setLoad} />
+					</div>
+
+					: <div>
+						<BlocksWave width={100} height={100} color={"orange"} />
+					</div>
 			}
 		</>
 	);

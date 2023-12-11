@@ -17,13 +17,16 @@ import 'dotenv/config.js'
 
 // app.js - SETUP section
 const PASS = process.env.PASS
+const HOST = process.env.HOST
+const PORT = process.env.PORT
 const USER = process.env.USER
+const DATABASE = process.env.DATABASE
 
 const db = mysql.createConnection({
-  host: 'classmysql.engr.oregonstate.edu',
-  user: 'cs340_belingam',
-  password: '5282',
-  database: 'cs340_belingam'
+  host: HOST,
+  user: USER,
+  password: PASS,
+  database: DATABASE
 });
 
 // Serve static files from the React app
@@ -245,12 +248,12 @@ app.post('/WorkoutExercise', (req, res) => {
   const { WorkoutID, ExerciseID, Sets, Reps, Intensity } = req.body;
   const insertQuery = "INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, Sets, Reps, Intensity) VALUES (?, ?, ?, ?, ?)";
   db.query(insertQuery, [WorkoutID, ExerciseID, Sets, Reps, Intensity], (err, result) => {
-      if (err) {
-          console.error('Error adding workout exercise', err);
-          res.status(500).send('Error adding workout exercise');
-          return;
-      }
-      res.status(201).json({ message: "Workout exercise added successfully", workoutExerciseID: result.insertId });
+    if (err) {
+      console.error('Error adding workout exercise', err);
+      res.status(500).send('Error adding workout exercise');
+      return;
+    }
+    res.status(201).json({ message: "Workout exercise added successfully", workoutExerciseID: result.insertId });
   });
 });
 
@@ -332,12 +335,12 @@ app.put('/UsersWorkout', (req, res) => {
   const { ID, UserID, WorkoutID } = req.body;
   const updateQuery = "UPDATE UsersWorkouts SET UserID = ?, WorkoutID = ? WHERE ID = ?";
   db.query(updateQuery, [UserID, WorkoutID, ID], (err, result) => {
-      if (err) {
-          console.error('Error updating user workout', err);
-          res.status(500).send('Error updating user workout');
-          return;
-      }
-      res.json({ message: "User workout updated successfully" });
+    if (err) {
+      console.error('Error updating user workout', err);
+      res.status(500).send('Error updating user workout');
+      return;
+    }
+    res.json({ message: "User workout updated successfully" });
   });
 });
 
@@ -345,12 +348,12 @@ app.put('/WorkoutExercise', (req, res) => {
   const { ID, Sets, Reps, Intensity } = req.body;
   const updateQuery = "UPDATE WorkoutExercises SET Sets = ?, Reps = ?, Intensity = ? WHERE ID = ?";
   db.query(updateQuery, [Sets, Reps, Intensity, ID], (err, result) => {
-      if (err) {
-          console.error('Error updating workout exercise', err);
-          res.status(500).send('Error updating workout exercise');
-          return;
-      }
-      res.json({ message: "Workout exercise updated successfully" });
+    if (err) {
+      console.error('Error updating workout exercise', err);
+      res.status(500).send('Error updating workout exercise');
+      return;
+    }
+    res.json({ message: "Workout exercise updated successfully" });
   });
 });
 
@@ -463,21 +466,20 @@ app.delete('/WorkoutExercise', (req, res) => {
   const { ID } = req.body;
   const deleteQuery = "DELETE FROM WorkoutExercises WHERE ID = ?";
   db.query(deleteQuery, [ID], (err, result) => {
-      if (err) {
-          console.error('Error deleting workout exercise', err);
-          res.status(500).send('Error deleting workout exercise');
-          return;
-      }
-      res.json({ message: "Workout exercise deleted successfully" });
+    if (err) {
+      console.error('Error deleting workout exercise', err);
+      res.status(500).send('Error deleting workout exercise');
+      return;
+    }
+    res.json({ message: "Workout exercise deleted successfully" });
   });
 });
 
 //Catch all other routes and return the index.html file from React app
- app.get('*', (req, res) => {
-   res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
- });
+app.get('*', (req, res) => {
+  res.sendFile('/nfs/stak/users/belingam/CS340/project/build/index.html');
+});
 
-const PORT = 9029;
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });

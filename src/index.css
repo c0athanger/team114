@@ -5,8 +5,10 @@
   --OffWhite: #edf0f1;
   --Grey: #f0f0f0;
   --Orange: #ffb511;
+  --LightBlue: #375baa;
   --DarkBlue: #14213d;
-  --DarkerBlue: #14213d80;
+  --DarkGreen: #001800;
+  --DarkerBlue: #05070e80;
   --Black: #000000;
   --RoseGold: #d3bc8d;
 }
@@ -128,7 +130,7 @@ body {
   font-weight: 400;
   font-size: 17px;
   line-height: 1.5em;
-  background: #180101;
+  background: var(--Black);
 }
 
 .List>div {
@@ -180,14 +182,67 @@ form {
 button {
   display: flex;
   opacity: 0.5;
-  color: var(--RoseGold);
+  color: var(--DarkBlue);
   border-radius: 15px;
-  border-color: rgb(170, 48, 48);
-  background-color: rgb(255, 255, 255);
+  background-color: var(--Orange);
   transition: all 0.3s ease 0s;
+}
+
+.entbutton {
+  opacity: 1;
+}
+
+
+.entbutton:disabled {
+  opacity: 0.5;
+}
+
+.searchbutton {
+  background-color: var(--DarkGreen);
+  color: var(--White);
 }
 
 
 button:hover {
   opacity: 1;
+}
+
+td,
+th {
+  border: 1px solid white;
+  padding: 8px;
+  opacity: 0.8;
+  min-width: 100px;
+}
+
+tr {
+  background-color: var(--DarkBlue);
+  opacity: 1;
+}
+
+tr:nth-child(even) {
+  background-color: var(--DarkGreen);
+}
+
+
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--Orange);
+  color: var(--Black);
+}
+
+td {
+  color: var(--White);
+}
+
+
+.centermeinside {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
