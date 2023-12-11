@@ -7,7 +7,7 @@
   --Orange: #ffb511;
   --LightBlue: #375baa;
   --DarkBlue: #14213d;
-  --DarkGreen: #297039;
+  --DarkGreen: #001800;
   --DarkerBlue: #05070e80;
   --Black: #000000;
   --RoseGold: #d3bc8d;
@@ -197,7 +197,8 @@ button {
 }
 
 .searchbutton {
-  background-color: var(--DarkGreen)
+  background-color: var(--DarkGreen);
+  color: var(--White);
 }
 
 
@@ -231,7 +232,11 @@ th {
   padding-bottom: 12px;
   text-align: left;
   background-color: var(--Orange);
-  color: white;
+  color: var(--Black);
+}
+
+td {
+  color: var(--White);
 }
 
 
