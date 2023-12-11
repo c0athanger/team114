@@ -52,7 +52,7 @@ const App = () => {
         </Routes>
         :
         <main>
-          <div className="centermeinsider">
+          <div className="centermeinside">
             <BlocksWave width={100} height={100} color={"orange"} />
           </div>
         </main>
