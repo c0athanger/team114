@@ -53,6 +53,7 @@ const Table = ({ attr, rt, name }) => {
 	}, []);
 
 	useEffect(() => {
+		setLoad(false)
 		const handleSearchEffect = async () => {
 			const response = await axios.get(`${rt}?search=${search}`);
 			setQuery(response.data)
