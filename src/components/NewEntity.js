@@ -84,7 +84,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 							}
 						})}
 
-						<td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
+						<td><button className='entbutton' disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
 					</tr>
 				</tbody>
 			</table>

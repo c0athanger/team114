@@ -182,7 +182,7 @@ button {
   display: flex;
   opacity: 0.5;
   color: var(--DarkBlue);
-  border-radius: 0px;
+  border-radius: 15px;
   background-color: var(--Orange);
   transition: all 0.3s ease 0s;
 }
@@ -201,7 +201,9 @@ button:hover {
 }
 
 
-
+table {
+  border-radius: 15px;
+}
 
 td,
 th {
@@ -210,11 +212,13 @@ th {
 }
 
 tr {
-  background-color: var(--DarkBlue)
+  background-color: var(--DarkBlue);
+  opacity: 1;
 }
 
 tr:nth-child(even) {
-  background-color: var(--DarkerBlue)
+  background-color: var(--DarkBlue);
+  opacity: 0.8;
 }
 
 
