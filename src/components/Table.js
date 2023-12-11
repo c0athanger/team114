@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import NewEntity from './NewEntity'
 import axios from '../axios'
 import { useLocation } from 'react-router-dom';
+import { BlocksWave } from "react-svg-spinners"
 
 const Table = ({ attr, rt, name }) => {
 
@@ -99,7 +100,7 @@ const Table = ({ attr, rt, name }) => {
 									<label for="idsearch" >
 										<input type="text" id="idsearch" placeholder={`Enter ${name} here`} value={search} onChange={e => setSearch(e.target.value)}></input>
 									</label>
-									<button onClick={handleSearch}> Search </button>
+									<button className='searchbutton' onClick={handleSearch}> Search </button>
 								</th>
 								{attr.map((attribute, index) => (
 									<th key={index}>

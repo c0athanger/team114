@@ -54,6 +54,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 								{attribute}
 							</th>
 						))}
+						<th></th>
 					</tr>
 				</thead>
 

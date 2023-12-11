@@ -7,6 +7,7 @@
   --Orange: #ffb511;
   --LightBlue: #375baa;
   --DarkBlue: #14213d;
+  --DarkGreen: #297039;
   --DarkerBlue: #05070e80;
   --Black: #000000;
   --RoseGold: #d3bc8d;
@@ -195,21 +196,23 @@ button {
   opacity: 0.5;
 }
 
+.searchbutton {
+  background-color: var(--DarkGreen)
+}
+
 
 button:hover {
   opacity: 1;
 }
 
 
-table {
-  border-radius: 15px;
-}
 
 td,
 th {
-  border: 1px solid #ddd;
+  border: 1px solid white;
   padding: 8px;
   opacity: 0.8;
+  min-width: 90px;
 }
 
 tr {
@@ -218,7 +221,7 @@ tr {
 }
 
 tr:nth-child(even) {
-  opacity: 0.9;
+  background-color: var(--DarkGreen);
 }
 
 
