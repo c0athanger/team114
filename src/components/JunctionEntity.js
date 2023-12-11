@@ -105,8 +105,8 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 
 	return (
 		<>
-			{isLoad ?
-				<>
+			{isLoad
+				? <>
 					<p>
 						To create/edit the entity, fill in all the fields and then click the save button.
 					</p>

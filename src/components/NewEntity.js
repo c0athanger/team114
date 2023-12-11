@@ -42,60 +42,52 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 
 	return (
 		<>
-			{isLoad ?
-				<>
-					<p>
-						To create/edit the entity, fill in all the fields and then click the save button.
-					</p>
-					<table id="editntity">
-						<caption>Create/edit an entity</caption>
-						<thead>
-							<tr>
-								{attr_header.map((attribute, index) => (
-									<th key={index}>
-										{attribute}
-									</th>
-								))}
-							</tr>
-						</thead>
+			<p>
+				To create/edit the entity, fill in all the fields and then click the save button.
+			</p>
+			<table id="editntity">
+				<caption>Create/edit an entity</caption>
+				<thead>
+					<tr>
+						{attr_header.map((attribute, index) => (
+							<th key={index}>
+								{attribute}
+							</th>
+						))}
+					</tr>
+				</thead>
 
-						<tbody>
-							<tr>
-								{attr_header.map((attribute, index) => {
+				<tbody>
+					<tr>
+						{attr_header.map((attribute, index) => {
 
-									if (attribute === 'IsUpperBody') {
-										return (
-											<td key={index}>
-												<label for="idname" className="required">
-													<select value={ent[attribute]} onChange={handleUpperBody}>
-														<option value={1}>Yes</option>
-														<option value={0}>No</option>
-													</select>
-												</label>
-											</td>
-										)
-									}
-									else {
-										return (
-											<td key={index}>
-												<label for="idname" className="required">
-													<input type="text" id="idname" placeholder="Enter value here" value={ent[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target.value; setEnt(en) }}></input>
-												</label>
-											</td>
-										)
-									}
-								})}
+							if (attribute === 'IsUpperBody') {
+								return (
+									<td key={index}>
+										<label for="idname" className="required">
+											<select value={ent[attribute]} onChange={handleUpperBody}>
+												<option value={1}>Yes</option>
+												<option value={0}>No</option>
+											</select>
+										</label>
+									</td>
+								)
+							}
+							else {
+								return (
+									<td key={index}>
+										<label for="idname" className="required">
+											<input type="text" id="idname" placeholder="Enter value here" value={ent[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target.value; setEnt(en) }}></input>
+										</label>
+									</td>
+								)
+							}
+						})}
 
-								<td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
-							</tr>
-						</tbody>
-					</table>
-				</>
-				:
-				<div>
-					<BlocksWave width={100} height={100} color={"orange"} />
-				</div>
-			}
+						<td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
+					</tr>
+				</tbody>
+			</table>
 		</>
 	)
 }
