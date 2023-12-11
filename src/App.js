@@ -51,9 +51,9 @@ const App = () => {
           </Route>
         </Routes>
         :
-        <>
-          <BlocksWave color={"orange"} />
-        </>
+        <div >
+          <BlocksWave width={100} height={100} color={"orange"} />
+        </div>
       }
     </>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from '../axios';
+import { BlocksWave } from "react-svg-spinners"
 
 
 const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
@@ -9,6 +10,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 	const [ent, setEnt] = useState({ ...entity });
 	const [fkTableOne, setfkTableOne] = useState({});
 	const [fkTableTwo, setfkTableTwo] = useState({});
+	const [isLoad, setLoad] = useState(false);
 
 
 
@@ -94,89 +96,95 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 			console.log(temp)
 			setEnt({ ...temp })
 			setHeader(function () { let temp = [...attr]; temp.shift(); return temp }());
+			setLoad(true);
 
 		}
 		handleGet().catch(console.error);
 	}, [])
 
-	useEffect(() => {
-
-	}, [fkTableOne, fkTableTwo]);
 
 	return (
 		<>
-			<p>
-				To create/edit the entity, fill in all the fields and then click the save button.
-			</p>
-			<table id="editntity">
-				<caption>Create/edit an entity</caption>
-				<thead>
-					<tr>
-						{attr_header.map((attribute, index) => (
-							<th key={index}>
-								{attribute}
-							</th>
-						))}
-					</tr>
-				</thead>
+			{isLoad ?
+				<>
+					<p>
+						To create/edit the entity, fill in all the fields and then click the save button.
+					</p>
+					<table id="editntity">
+						<caption>Create/edit an entity</caption>
+						<thead>
+							<tr>
+								{attr_header.map((attribute, index) => (
+									<th key={index}>
+										{attribute}
+									</th>
+								))}
+							</tr>
+						</thead>
 
-				<tbody>
-					<tr>
-						{attr_header.map((attribute, index) => {
+						<tbody>
+							<tr>
+								{attr_header.map((attribute, index) => {
 
-							if (attribute === 'IsUpperBody') {
-								return (
-									<td key={index}>
-										<label for="idname" className="required">
-											<select value={ent[attribute]} onChange={handleUpperBody}>
-												<option value={1}>Yes</option>
-												<option value={0}>No</option>
-											</select>
-										</label>
-									</td>
-								)
-							}
-							else if (attribute == fk1) {
-								return (
-									<td key={index}>
-										<label for="idname" className="required">
-											<select value={ent[attribute]} onChange={handleFK1}>
-												{Object.keys(fkTableOne).map((fk, ind) => (
-													<option value={fk}>{fkTableOne[fk] ? fkTableOne[fk] : "None"}</option>
-												))}
-											</select>
-										</label>
-									</td>
-								)
-							}
-							else if (attribute == fk2) {
-								return (
-									<td key={index}>
-										<label for="idname" className="required">
-											<select value={ent[attribute]} onChange={handleFK2}>
-												{Object.keys(fkTableTwo).map((fk, ind) => (
-													<option value={fk}>{fkTableTwo[fk] ? fkTableTwo[fk] : "None"}</option>
-												))}
-											</select>
-										</label>
-									</td>
-								)
-							}
-							else {
-								return (
-									<td key={index}>
-										<label for="idname" className="required">
-											<input type="text" id="idname" placeholder="Enter value here" value={ent[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target.value; setEnt(en) }}></input>
-										</label>
-									</td>
-								)
-							}
-						})}
+									if (attribute === 'IsUpperBody') {
+										return (
+											<td key={index}>
+												<label for="idname" className="required">
+													<select value={ent[attribute]} onChange={handleUpperBody}>
+														<option value={1}>Yes</option>
+														<option value={0}>No</option>
+													</select>
+												</label>
+											</td>
+										)
+									}
+									else if (attribute == fk1) {
+										return (
+											<td key={index}>
+												<label for="idname" className="required">
+													<select value={ent[attribute]} onChange={handleFK1}>
+														{Object.keys(fkTableOne).map((fk, ind) => (
+															<option value={fk}>{fkTableOne[fk] ? fkTableOne[fk] : "None"}</option>
+														))}
+													</select>
+												</label>
+											</td>
+										)
+									}
+									else if (attribute == fk2) {
+										return (
+											<td key={index}>
+												<label for="idname" className="required">
+													<select value={ent[attribute]} onChange={handleFK2}>
+														{Object.keys(fkTableTwo).map((fk, ind) => (
+															<option value={fk}>{fkTableTwo[fk] ? fkTableTwo[fk] : "None"}</option>
+														))}
+													</select>
+												</label>
+											</td>
+										)
+									}
+									else {
+										return (
+											<td key={index}>
+												<label for="idname" className="required">
+													<input type="text" id="idname" placeholder="Enter value here" value={ent[attribute]} name="name" onChange={e => { let en = { ...ent }; en[attribute] = e.target.value; setEnt(en) }}></input>
+												</label>
+											</td>
+										)
+									}
+								})}
 
-						<td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
-					</tr>
-				</tbody>
-			</table>
+								<td><button disabled={falsyEntity() ? true : false} onClick={EditExercise}>Save</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</>
+				:
+				<div>
+					<BlocksWave width={100} height={100} color={"orange"} />
+				</div>
+			}
 		</>
 	)
 }
