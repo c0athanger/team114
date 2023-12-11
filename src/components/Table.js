@@ -16,6 +16,7 @@ const Table = ({ attr, rt, name }) => {
 	const [isNew, setIsNew] = useState(true);
 	const [isEdit, setEdit] = useState(0);
 	const [query, setQuery] = useState([]);
+	const [isLoad, setLoad] = useState(false);
 
 	const handleCreate = async (e) => {
 		console.log("req:"); console.log(e);
@@ -44,6 +45,7 @@ const Table = ({ attr, rt, name }) => {
 	const handleSearch = async () => {
 		const response = await axios.get(`${rt}?search=${search}`);
 		setQuery(response.data)
+		setLoad(true)
 	}
 
 	useEffect(() => {
@@ -54,6 +56,7 @@ const Table = ({ attr, rt, name }) => {
 		const handleSearchEffect = async () => {
 			const response = await axios.get(`${rt}?search=${search}`);
 			setQuery(response.data)
+			setLoad(true)
 		}
 		setIsUpdate(0); setSearch(''); setExDefault({});
 		setIsNew(true);
@@ -90,8 +93,8 @@ const Table = ({ attr, rt, name }) => {
 
 	return (
 		<>
-			{!isUpdate
-				? <div>
+			{!isUpdate && isLoad
+				? <div className='tableitems'>
 					<button onClick={addEntity}>Create new {name}</button>
 					<table>
 						<thead>
@@ -126,10 +129,15 @@ const Table = ({ attr, rt, name }) => {
 						</tbody>
 					</table>
 				</div>
-				:
-				<div>
-					<NewEntity entity={exDefault} attr={attr} handleSubmit={isNew ? handleCreate : handleUpdate} setIsUpdate={setIsUpdate} isEdit={isEdit} />
-				</div>
+				: isLoad
+					? <div>
+						<NewEntity entity={exDefault} attr={attr} handleSubmit={isNew ? handleCreate : handleUpdate} setIsUpdate={setIsUpdate} isEdit={isEdit} setTableLoad={setLoad} />
+					</div>
+
+					: <div>
+						<BlocksWave width={100} height={100} color={"orange"} />
+					</div>
+
 			}
 		</>
 	);

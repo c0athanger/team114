@@ -3,7 +3,7 @@ import axios from '../axios';
 import { BlocksWave } from "react-svg-spinners"
 
 
-const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
+const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit, setTableLoad }) => {
 	const [fk1, _] = useState(attr[attr.length - 1]);
 	const [fk2, __] = useState(attr[attr.length - 2]);
 	const [attr_header, setHeader] = useState([]);
@@ -24,6 +24,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit }) => {
 
 	const EditExercise = (e) => {
 		e.preventDefault();
+		setTableLoad(false);
 		if (isEdit == false) {
 			setIsUpdate(false)
 			let temp = { ...ent };
