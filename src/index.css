@@ -52,12 +52,7 @@ h2 {
 }
 
 
-.Intro {
 
-  background-color: var(--DarkBlue);
-  margin: 20px;
-
-}
 
 header {
   background-color: var(--DarkBlue);
@@ -94,24 +89,7 @@ a {
   position: relative;
 }
 
-.sub-menu {
-  position: absolute;
-  top: calc(100% + 0.25rem);
-  background-color: var(--Black);
-  padding: 0.75rem;
-  border-radius: 0.25rem;
-  box-shadow: 0 2px 5px 0 rgba(255, 255, 255, 0.2);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-10px);
-  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
-}
 
-.dropdown.active>a+.sub-menu {
-  opacity: 1;
-  transform: translateY(-2px);
-  pointer-events: auto;
-}
 
 
 .List {
@@ -196,230 +174,11 @@ form {
   padding-bottom: 1rem;
 }
 
-.instructions {
-  font-size: 0.75rem;
-  border-radius: 0.5rem;
-  background: #000;
-  color: #fff;
-  padding: 0.25rem;
-  position: relative;
-  bottom: -10px;
-}
-
-.instructions>svg {
-  margin-right: 0.25rem;
-}
-
-.offscreen {
-  position: absolute;
-  left: -9999px;
-}
-
-.hide {
-  display: none;
-}
-
-.valid {
-  color: limegreen;
-  margin-left: 0.25rem;
-}
-
-.invalid {
-  color: red;
-  margin-left: 0.25rem;
-}
-
-.errmsg {
-  background-color: lightpink;
-  color: firebrick;
-  font-weight: bold;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.line {
-  display: inline-block;
-  text-decoration: underline;
-}
 
 
-.nav-box-wrapper {
+
+button {
   display: flex;
-  flex-flow: column;
-  min-height: 400px;
-  height: 600px;
-  width: 500px;
-}
-
-.tabs-horiz {
-  display: flex;
-  font-size: 16px;
-  justify-content: center;
-  align-items: flex-end;
-  width: 100%;
-  flex-flow: row nowrap;
-}
-
-.tab {
-  flex: 1 1 auto;
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--White);
-  margin: 5px;
-  border-bottom: 2px solid;
-  transition: border-color 0.3s ease 0s;
-}
-
-.tab.active {
-  border-color: var(--Orange)
-}
-
-.tab.click-active {
-  color: var(--Orange)
-}
-
-.pool-wrapper {
-  flex: 1 1 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  position: relative;
-  grid-gap: 15px;
-}
-
-.sm-pools {
-  position: relative;
-  flex: 1 1 auto;
-  cursor: pointer;
-  justify-content: center;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  border: 1px solid #404040;
-  /* color: #bababa; */
-  color: #f0f0f0;
-  background-color: var(--DarkerBlue);
-  transition: all 0.3s ease 0s;
-}
-
-.sm-pools-child {
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  flex-flow: column;
-}
-
-.sm-pools.active {
-  background: #ffb41152;
-}
-
-.pool-search {
-  position: absolute;
-  background-color: var(--DarkerBlue);
-  width: 100%;
-  height: 50%;
-  display: inline-block;
-  text-align: center;
-  vertical-align: bottom;
-  opacity: 0;
-  transition: all 0.3s ease 0s;
-}
-
-.pool-search.loaded {
-  opacity: 1;
-}
-
-.spinner {
-  color: var(--Orange);
-}
-
-p {
-  text-align: center;
-}
-
-.cancel-search {
-  position: absolute;
-  top: 0%;
-  opacity: 0;
-  transition: opacity 0.3s ease 0.1s;
-  right: -9999px;
-}
-
-.cancel-search.active {
-  opacity: 1;
-  right: 5%;
-}
-
-.popup {
-  display: flex;
-  position: absolute;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 200px;
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 1s ease, transform 1s ease;
-  color: var(--RoseGold);
-  text-align: center;
-  font-size: 2rem;
-}
-
-.popup>h {
-  color: var(--RoseGold);
-  text-align: center;
-  font-size: 2rem
-}
-
-
-
-.popup.in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* .progress {
-  opacity: 0;
-  border-radius: 20px;
-  position: relative;
-  margin: 15px 0;
-  height: 30px;
-  width: 100%;
-} */
-
-.progress-done {
-  background: linear-gradient(to left, #F2709C, #FF9472);
-  height: 15px;
-  margin: 15px 0;
-  box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
-  position: relative;
-  border-radius: 20px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 0;
-  opacity: 0;
-  transition: 1s ease 0.3s;
-}
-
-.game-found-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.game-found-buttons {
-  display: flex;
-}
-
-.game-found-buttons>button {
   opacity: 0.5;
   color: var(--RoseGold);
   border-radius: 15px;
@@ -429,6 +188,6 @@ p {
 }
 
 
-.game-found-buttons>button:hover {
+button:hover {
   opacity: 1;
 }

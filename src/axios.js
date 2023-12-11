@@ -1,4 +1,4 @@
 import axios from 'axios';
 export default axios.create({
-	baseURL: 'http://flip3.engr.oregonstate.edu:9009'
+	baseURL: 'http://flip4.engr.oregonstate.edu:9009'
 })
