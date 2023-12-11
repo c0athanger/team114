@@ -209,6 +209,7 @@ td,
 th {
   border: 1px solid #ddd;
   padding: 8px;
+  opacity: 0.8;
 }
 
 tr {
@@ -217,8 +218,7 @@ tr {
 }
 
 tr:nth-child(even) {
-  background-color: var(--DarkBlue);
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 
