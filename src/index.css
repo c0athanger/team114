@@ -181,11 +181,18 @@ form {
 button {
   display: flex;
   opacity: 0.5;
-  color: var(--RoseGold);
-  border-radius: 15px;
-  border-color: rgba(0, 0, 0, 0);
-  background-color: rgba(0, 0, 0, 0);
+  color: var(--DarkBlue);
+  border-radius: 0px;
+  background-color: var(--Orange);
   transition: all 0.3s ease 0s;
+}
+
+.entbutton {
+  opacity: 1;
+}
+
+.entbutton:disabled {
+  opacity: 0.5;
 }
 
 
@@ -202,20 +209,21 @@ th {
   padding: 8px;
 }
 
+tr {
+  background-color: var(--DarkBlue)
+}
+
 tr:nth-child(even) {
   background-color: var(--DarkerBlue)
 }
 
-tr:nth-child(odd) {
-  background-color: var(--DarkBlue)
-}
 
 
 th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: var(--RoseGold);
+  background-color: var(--Orange);
   color: white;
 }
 
