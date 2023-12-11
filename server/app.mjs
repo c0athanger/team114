@@ -19,15 +19,15 @@ import 'dotenv/config.js'
 const PASS = process.env.PASS
 const HOST = process.env.HOST
 const PORT = process.env.PORT
-const USER = process.env.USER
+const USERNAME = process.env.USERNAME
 const DATABASE = process.env.DATABASE
 const INDEX_PATH = process.env.INDEX_PATH
 
 const db = mysql.createConnection({
-  host: "classmysql.engr.oregonstate.edu",
-  user: "cs340_hillja3",
-  password: '4218',
-  database: 'cs340_hillja3'
+  host: HOST,
+  user: USERNAME,
+  password: PASS,
+  database: DATABASE
 });
 
 // Serve static files from the React app
