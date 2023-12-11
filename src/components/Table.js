@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Exercise from './Exercise'
 import NewEntity from './NewEntity'
 import axios from '../axios'
 import { useLocation } from 'react-router-dom';
@@ -126,15 +125,10 @@ const Table = ({ attr, rt, name }) => {
 						</tbody>
 					</table>
 				</div>
-				: isUpdate == 1
-					?
-					<div>
-						<NewEntity entity={exDefault} attr={attr} handleSubmit={isNew ? handleCreate : handleUpdate} setIsUpdate={setIsUpdate} isEdit={isEdit} />
-					</div>
-					:
-					<div>
-						<Exercise exercise={exDefault} setIsUpdate={setIsUpdate} />
-					</div>
+				:
+				<div>
+					<NewEntity entity={exDefault} attr={attr} handleSubmit={isNew ? handleCreate : handleUpdate} setIsUpdate={setIsUpdate} isEdit={isEdit} />
+				</div>
 			}
 		</>
 	);

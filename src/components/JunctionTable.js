@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Exercise from './Exercise'
 import JunctionEntity from './JunctionEntity'
 import axios from '../axios'
 import { useLocation } from 'react-router-dom';
@@ -127,15 +126,10 @@ const Table = ({ attr, rt, name, fk }) => {
 						</tbody>
 					</table>
 				</div>
-				: isUpdate == 1
-					?
-					<div>
-						<JunctionEntity entity={exDefault} attr={attr} handleSubmit={isNew ? handleCreate : handleUpdate} setIsUpdate={setIsUpdate} isEdit={isEdit} />
-					</div>
-					:
-					<div>
-						<Exercise exercise={exDefault} setIsUpdate={setIsUpdate} />
-					</div>
+				:
+				<div>
+					<JunctionEntity entity={exDefault} attr={attr} handleSubmit={isNew ? handleCreate : handleUpdate} setIsUpdate={setIsUpdate} isEdit={isEdit} />
+				</div>
 			}
 		</>
 	);
