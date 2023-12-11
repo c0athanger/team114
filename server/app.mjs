@@ -21,6 +21,7 @@ const HOST = process.env.HOST
 const PORT = process.env.PORT
 const USER = process.env.USER
 const DATABASE = process.env.DATABASE
+const INDEX_PATH = process.env.INDEX_PATH
 
 const db = mysql.createConnection({
   host: HOST,
@@ -477,7 +478,7 @@ app.delete('/WorkoutExercise', (req, res) => {
 
 //Catch all other routes and return the index.html file from React app
 app.get('*', (req, res) => {
-  res.sendFile('/build/index.html');
+  res.sendFile(INDEX_PATH);
 });
 
 app.listen(PORT, () => {
