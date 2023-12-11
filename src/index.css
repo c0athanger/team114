@@ -7,7 +7,7 @@
   --Orange: #ffb511;
   --LightBlue: #375baa;
   --DarkBlue: #14213d;
-  --DarkerBlue: #14213d80;
+  --DarkerBlue: #05070e80;
   --Black: #000000;
   --RoseGold: #d3bc8d;
 }
@@ -225,4 +225,5 @@ th {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }

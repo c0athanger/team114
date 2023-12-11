@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import JunctionEntity from './JunctionEntity'
 import axios from '../axios'
 import { useLocation } from 'react-router-dom';
+import { BlocksWave } from "react-svg-spinners"
 
 const Table = ({ attr, rt, name, fk }) => {
 
@@ -115,7 +116,7 @@ const Table = ({ attr, rt, name, fk }) => {
 							{query.map((entity, index) => (
 								<tr key={index}>
 									{attr.map((attribute, i) => (
-										<td>{entity[attribute]}</td>
+										<td>{entity[attribute] ? entity[attribute] : "None"}</td>
 									))}
 									<td>
 										<button onClick={(e) => { e.preventDefault(); editEntity(index) }}>Update</button>
