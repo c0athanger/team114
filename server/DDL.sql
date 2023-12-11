@@ -120,6 +120,9 @@ INSERT INTO UsersWorkouts (WorkoutID, UserID) VALUES
 (1, 1),
 (2, 2);
 
+INSERT INTO ExerciseBodyParts ( BodyPartID, ExerciseID) VALUES
+(1, 1),
+(2, 2);
 
 INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, Sets, Reps, Intensity) VALUES
 (1, 1, 3, 10, 0.75),
