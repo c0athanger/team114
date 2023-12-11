@@ -65,8 +65,8 @@ const Table = ({ attr, rt, name }) => {
 		const response = await axios.get(`${rt}?search=${search}`);
 		const response1 = await axios.get(fk_path[attr[attr.length - 2]]);
 		const response2 = await axios.get(fk_path[attr[attr.length - 1]]);
-		parseNames(response1.data, fk1, setfkTableOne);
-		parseNames(response2.data, fk2, setfkTableTwo);
+		parseNames(response1.data, attr[attr.length - 2], setfkTableOne);
+		parseNames(response2.data, attr[attr.length - 1], setfkTableTwo);
 		setQuery(response.data)
 		setLoad(true);
 		console.log(response.data)
@@ -83,8 +83,8 @@ const Table = ({ attr, rt, name }) => {
 			const response = await axios.get(`${rt}?search=${search}`);
 			const response1 = await axios.get(fk_path[attr[attr.length - 2]]);
 			const response2 = await axios.get(fk_path[attr[attr.length - 1]]);
-			parseNames(response1.data, fk1, setfkTableOne);
-			parseNames(response2.data, fk2, setfkTableTwo);
+			parseNames(response1.data, attr[attr.length - 2], setfkTableOne);
+			parseNames(response2.data, attr[attr.length - 1], setfkTableTwo);
 			setQuery(response.data);
 			setLoad(true);
 			console.log(query)
@@ -136,11 +136,23 @@ const Table = ({ attr, rt, name }) => {
 					<table>
 						<thead>
 							<tr>
-								{attr.map((attribute, index) => (
-									<th key={index}>
-										{attribute}
-									</th>
-								))}
+								{attr.map((attribute, index) => {
+									if (index < attr.length - 2) return (
+										<th key={index}>
+											{attribute}
+										</th>
+									);
+									else return (
+										<>
+											<th key={index}>
+												{attribute}
+											</th>
+											<th key={index}>
+												{`${attribute.substring(0, attribute.length - 2)} Name`}
+											</th>
+										</>
+									)
+								})}
 								<th>Actions</th>
 							</tr>
 						</thead>
