@@ -44,7 +44,9 @@ app.use(express.static('../build'));
 
 app.use(express.json());
 
-
+// This routes handles get requests for table attributes.
+// It retrieves a array of attributes for a specific table
+// specified by the search term.
 app.get('/Attribute', (req, res) => {
   const searchTerm = req.query.search;
   const query = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'${searchTerm}'`
