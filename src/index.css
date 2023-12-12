@@ -56,6 +56,9 @@ h2 {
 
 
 
+/* Date: 12/30/2022   */
+/* Routing and navbar loosely based off this react navbar tutorial */
+/* Source URL: https://github.com/tech2etc/React-Navbar-Advance */
 header {
   background-color: var(--DarkBlue);
   flex: 0 1 auto;
@@ -207,6 +210,9 @@ button:hover {
   opacity: 1;
 }
 
+/* Date: 12/10/2023 (No date provided on site) */
+/* Table styling loosely based off w3schools tutorial */
+/* Source URL: https://www.w3schools.com/css/css_table.asp */
 td,
 th {
   border: 1px solid white;

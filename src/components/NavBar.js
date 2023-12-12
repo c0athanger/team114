@@ -2,6 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
 
+// Date: 12/30/2022  
+// Routing and navbar loosely based off this react navbar tutorial
+// Source URL: https://github.com/tech2etc/React-Navbar-Advance
 ///////////////////////////////////////////////
 // Component for site navbar
 ///////////////////////////////////////////////

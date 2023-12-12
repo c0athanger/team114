@@ -7,6 +7,10 @@ import JunctionTable from './components/JunctionTable'
 import axios from 'axios'
 import { BlocksWave } from "react-svg-spinners"
 
+// Date: 12/30/2022  
+// Routing and navbar loosely based off this react navbar tutorial
+// Source URL: https://github.com/tech2etc/React-Navbar-Advance
+
 ///////////////////////////////////////////////
 // App component
 ///////////////////////////////////////////////
