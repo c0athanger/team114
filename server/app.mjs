@@ -83,7 +83,11 @@ app.get('/BodyPart', (req, res) => {
     res.json(bodyParts);
   });
 });
-
+// This route handles GET requests for '/Exercise'.
+// It retrieves a list of exercises from the database.
+// An optional 'search' query parameter can be used to filter exercises by their names.
+// If a 'search' term is provided, it returns exercises that contain this term in their names.
+// If no search term is provided, it returns all exercises.
 app.get('/Exercise', (req, res) => {
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM Exercises WHERE Name LIKE ?";
@@ -97,6 +101,11 @@ app.get('/Exercise', (req, res) => {
     res.json(exercises);
   });
 });
+// This route handles GET requests for '/Workout'.
+// It retrieves a list of workouts from the database.
+// An optional 'search' query parameter can be used to filter workouts by their names.
+// If a 'search' term is provided, it returns workouts that contain the term in their names.
+// If no search term is provided, it returns all workouts.
 app.get('/Workout', (req, res) => {
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM Workouts WHERE Name LIKE ?";
@@ -110,7 +119,11 @@ app.get('/Workout', (req, res) => {
     res.json(workouts);
   });
 });
-
+// This route handles GET requests for '/User'.
+// It retrieves a list of users from the database.
+// An optional 'search' query parameter can be used to filter users by their usernames.
+// If a 'search' term is provided, it returns users that contain this term in their usernames.
+// If no search term is provided, it returns all users.
 app.get('/User', (req, res) => {
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM Users WHERE Username LIKE ?";
@@ -124,7 +137,11 @@ app.get('/User', (req, res) => {
     res.json(users);
   });
 });
-
+// This route handles GET requests for '/UsersWorkout'.
+// It retrieves a list of user workouts from the database.
+// An optional 'search' query parameter can be used to filter by the ID.
+// If a 'search' term is provided, it returns user workouts that contain this term in their ID.
+// If no search term is provided, it returns all user workouts.
 app.get('/UsersWorkout', (req, res) => {
   console.log("GET usersworkouts");
   const searchTerm = req.query.search || '';
@@ -139,7 +156,11 @@ app.get('/UsersWorkout', (req, res) => {
     res.json(users);
   });
 });
-
+// This route handles GET requests for '/ExerciseBodyPart'.
+// It retrieves a list of exercise-body part associations from the database.
+// An optional 'search' query parameter can be used to filter by the ID.
+// If a 'search' term is provided, it returns associations that contain this term in their ID.
+// If no search term is provided, it returns all associations.
 app.get('/ExerciseBodyPart', (req, res) => {
   console.log("GET ExerciseBodyPart");
   const searchTerm = req.query.search || '';
@@ -153,7 +174,11 @@ app.get('/ExerciseBodyPart', (req, res) => {
     res.json(users);
   });
 });
-
+// This route handles GET requests for '/WorkoutExercise'.
+// It retrieves a list of workout exercises from the database.
+// An optional 'search' query parameter can be used to filter by the ID.
+// If a 'search' term is provided, it returns workout exercises that contain this term in their ID.
+// If no search term is provided, it returns all workout exercises.
 app.get('/WorkoutExercise', (req, res) => {
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM WorkoutExercises WHERE ID LIKE ?";
@@ -185,7 +210,10 @@ app.post('/BodyPart', (req, res) => {
     res.status(201).json({ message: "Body part created successfully", bodyPartID: result.insertId });
   });
 });
-
+// This route handles POST requests for '/Exercise'.
+// It adds a new exercise to the database.
+// The request body must contain 'Name' and 'Description' of the exercise.
+// If the exercise is added successfully, it returns a confirmation message with the new exercise's ID.
 app.post('/Exercise', (req, res) => {
   const { Name, Description } = req.body;
   const insertExerciseQuery = "INSERT INTO Exercises (Name, Description) VALUES (?, ?)";
@@ -197,7 +225,10 @@ app.post('/Exercise', (req, res) => {
     res.status(201).json({ message: "Exercise created successfully", exerciseID: result.insertId });
   });
 });
-
+// This route handles POST requests for '/Workout'.
+// It adds a new workout to the database.
+// The request body must contain the 'Name' and 'Description' of the workout.
+// On successful addition, it sends back a confirmation message with the new workout's ID.
 app.post('/Workout', (req, res) => {
   const { Name, Description } = req.body;
   const insertWorkoutQuery = "INSERT INTO Workouts (Name, Description) VALUES (?, ?)";
@@ -209,7 +240,10 @@ app.post('/Workout', (req, res) => {
     res.status(201).json({ message: "workout created successfully", WorkoutID: result.insertId });
   });
 });
-
+// This route handles POST requests for '/User'.
+// It adds a new user to the database.
+// The request body must contain 'Username', 'Email', and 'Password' of the user.
+// On successful addition, it returns a confirmation message with the new user's ID.
 app.post('/User', (req, res) => {
   const { Username, Email, Password } = req.body;
   const insertUserQuery = "INSERT INTO Users (Username,Email,Password) VALUES (?, ?, ?)";
@@ -222,7 +256,10 @@ app.post('/User', (req, res) => {
   });
 });
 
-
+// This route handles POST requests for '/ExerciseBodyPart'.
+// It creates a new association between an exercise and a body part in the database.
+// The request body must contain 'ExerciseID' and 'BodyPartID'.
+// On successful addition, it sends back a confirmation message with the new association's ID.
 app.post('/ExerciseBodyPart', (req, res) => {
   const { ExerciseID, BodyPartID } = req.body;
   // The if statement below checks if the bodypartID received is null
@@ -241,6 +278,10 @@ app.post('/ExerciseBodyPart', (req, res) => {
     res.status(201).json({ message: "exercise body part created successfully", exerciseID: result.insertId });
   });
 });
+// This route handles POST requests for '/UsersWorkout'.
+// It adds a new user workout association to the database.
+// The request body must include 'UserID' and 'WorkoutID'.
+// On successful addition, it returns a confirmation message with the new association's ID.
 app.post('/UsersWorkout', (req, res) => {
   const { UserID, WorkoutID } = req.body;
   const insertUserWorkoutQuery = "INSERT INTO UsersWorkouts (UserID, WorkoutID) VALUES (?, ?)";
@@ -252,7 +293,10 @@ app.post('/UsersWorkout', (req, res) => {
     res.status(201).json({ message: "User workout created successfully", userWorkoutID: result.insertId });
   });
 });
-
+// This route handles POST requests for '/WorkoutExercise'.
+// It adds a new workout exercise to the database.
+// The request body must include 'WorkoutID', 'ExerciseID', 'Sets', 'Reps', and 'Intensity'.
+// On successful addition, it sends back a confirmation message with the new workout exercise's ID.
 app.post('/WorkoutExercise', (req, res) => {
   const { WorkoutID, ExerciseID, Sets, Reps, Intensity } = req.body;
   const insertQuery = "INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, Sets, Reps, Intensity) VALUES (?, ?, ?, ?, ?)";
@@ -284,7 +328,10 @@ app.put('/BodyPart', (req, res) => {
     res.json({ message: "Body part updated successfully" });
   });
 });
-
+// This route handles PUT requests for '/Exercise'.
+// It updates an existing exercise in the database.
+// The request body must include 'ExerciseID', and new values for 'Name' and 'Description'.
+// It sends back a confirmation message if the update is successful.
 app.put('/Exercise', (req, res) => {
   const { ExerciseID, Name, Description } = req.body
   const updateExerciseQuery = "UPDATE Exercises SET Name = ?, Description = ? WHERE ExerciseID = ?";
@@ -297,7 +344,10 @@ app.put('/Exercise', (req, res) => {
   });
 });
 
-
+// This route handles PUT requests for '/Workout'.
+// It updates an existing workout in the database.
+// The request body must include 'WorkoutID', and new values for 'Name' and 'Description'.
+// It sends back a confirmation message if the update is successful.
 app.put('/Workout', (req, res) => {
   const { WorkoutID, Name, Description } = req.body
   const updateExerciseQuery = "UPDATE Workouts SET Name = ?, Description = ? WHERE WorkoutID = ?";
@@ -310,7 +360,10 @@ app.put('/Workout', (req, res) => {
   });
 });
 
-
+// This route handles PUT requests for '/User'.
+// It updates an existing user in the database.
+// The request body must include 'UserID', and new values for 'Username', 'Email', and 'Password'.
+// It sends back a confirmation message if the update is successful.
 app.put('/User', (req, res) => {
   const { UserID, Username, Email, Password } = req.body
   const updateUserQuery = "UPDATE Users SET Username = ?, Email = ?, Password = ? WHERE UserID = ?";
@@ -322,7 +375,10 @@ app.put('/User', (req, res) => {
     res.json({ message: "User updated successfully" });
   });
 });
-
+// This route handles PUT requests for '/ExerciseBodyPart'.
+// It updates an existing association between an exercise and a body part in the database.
+// The request body must include 'ID', 'ExerciseID', and 'BodyPartID'.
+// It sends back a confirmation message if the update is successful.
 app.put('/ExerciseBodyPart', (req, res) => {
   const { ID, ExerciseID, BodyPartID } = req.body
   let bodyPartIdValue
@@ -340,6 +396,11 @@ app.put('/ExerciseBodyPart', (req, res) => {
     res.json({ message: "Exercise body part updated successfully" });
   });
 });
+
+// This route handles PUT requests for '/UsersWorkout'.
+// It updates an existing user workout association in the database.
+// The request body must include 'ID', 'UserID', and 'WorkoutID'.
+// It sends back a confirmation message if the update is successful.
 app.put('/UsersWorkout', (req, res) => {
   const { ID, UserID, WorkoutID } = req.body;
   const updateQuery = "UPDATE UsersWorkouts SET UserID = ?, WorkoutID = ? WHERE ID = ?";
@@ -352,7 +413,10 @@ app.put('/UsersWorkout', (req, res) => {
     res.json({ message: "User workout updated successfully" });
   });
 });
-
+// This route handles PUT requests for '/WorkoutExercise'.
+// It updates an existing workout exercise in the database.
+// The request body must include 'ID', 'Sets', 'Reps', and 'Intensity'.
+// It sends back a confirmation message if the update is successful.
 app.put('/WorkoutExercise', (req, res) => {
   const { ID, Sets, Reps, Intensity } = req.body;
   const updateQuery = "UPDATE WorkoutExercises SET Sets = ?, Reps = ?, Intensity = ? WHERE ID = ?";
@@ -389,7 +453,11 @@ app.delete('/BodyPart', (req, res) => {
     });
   });
 });
-
+// This route handles DELETE requests for '/Exercise'.
+// It deletes an existing exercise from the database.
+// The request body must include 'ExerciseID'.
+// Before deletion, it also removes associated data from the 'ExerciseBodyParts' junction table.
+// It returns a confirmation message when the deletion is successful.
 app.delete('/Exercise', (req, res) => {
   const { ExerciseID } = req.body;
   const deleteJunctionQuery = "DELETE FROM ExerciseBodyParts WHERE ExerciseID = ?";
@@ -408,7 +476,11 @@ app.delete('/Exercise', (req, res) => {
     });
   });
 });
-
+// This route handles DELETE requests for '/Workout'.
+// It deletes an existing workout from the database.
+// The request body must include 'WorkoutID'.
+// Before delete from the parent table, it also removes associated data from the 'UsersWorkouts' junction table.
+// It returns a confirmation message when the deletion is successful.
 app.delete('/Workout', (req, res) => {
   const { WorkoutID } = req.body;
   const deleteJunctionQuery = "DELETE FROM UsersWorkouts WHERE WorkoutID = ?";
@@ -427,7 +499,11 @@ app.delete('/Workout', (req, res) => {
     });
   });
 });
-
+// This route handles DELETE requests for '/User'.
+// It deletes an existing user from the database.
+// The request body must include 'UserID'.
+// Before deletion, it also removes associated data from the 'UsersWorkouts' junction table.
+// It returns a confirmation message when the deletion is successful.
 app.delete('/User', (req, res) => {
   const { UserID } = req.body;
   const deleteJunctionQuery = "DELETE FROM UsersWorkouts WHERE UserID = ?";
@@ -446,7 +522,10 @@ app.delete('/User', (req, res) => {
     });
   });
 });
-
+// This route handles DELETE requests for '/ExerciseBodyPart'.
+// It deletes an existing exercise-body part association from the database.
+// The request body must include the 'ID' of the association to be deleted.
+// It returns a confirmation message when the deletion is successful.
 app.delete('/ExerciseBodyPart', (req, res) => {
   const { ID } = req.body;
   const deleteQuery = "DELETE FROM ExerciseBodyParts WHERE ID = ?";
@@ -458,7 +537,10 @@ app.delete('/ExerciseBodyPart', (req, res) => {
     res.json({ message: "exercise body part deleted successfully" });
   });
 });
-
+// This route handles DELETE requests for '/UsersWorkout'.
+// It deletes an existing user workout association from the database.
+// The request body must include the 'ID' of the association to be deleted.
+// It returns a confirmation message when the deletion is successful.
 app.delete('/UsersWorkout', (req, res) => {
   const { ID } = req.body;
   const deleteUserWorkoutQuery = "DELETE FROM UsersWorkouts WHERE ID = ?";
@@ -470,7 +552,10 @@ app.delete('/UsersWorkout', (req, res) => {
     res.json({ message: "User workout deleted successfully" });
   });
 });
-
+// This route handles DELETE requests for '/WorkoutExercise'.
+// It deletes an existing workout exercise from the database.
+// The request body must include the 'ID' of the workout exercise to be deleted.
+// It returns a confirmation message when the deletion is successful.
 app.delete('/WorkoutExercise', (req, res) => {
   const { ID } = req.body;
   const deleteQuery = "DELETE FROM WorkoutExercises WHERE ID = ?";
