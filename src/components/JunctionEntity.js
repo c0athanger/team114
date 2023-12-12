@@ -122,7 +122,6 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit, setTableLo
 					temp[fk2] = response2.data[0][fk2]
 				}
 			}
-			console.log(temp)
 			setEnt({ ...temp })
 			setHeader(function () { let temp = [...attr]; temp.shift(); return temp }());
 			setLoad(true);

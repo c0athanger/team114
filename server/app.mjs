@@ -1,8 +1,3 @@
-// const express = require('express');
-// const path = require('path');
-// const mysql = require('mysql');
-
-
 // Citation for the following function: mysql.createConnection
 // Date: 12/10/2023
 // Based on the guide provided in activity 2
@@ -145,7 +140,6 @@ app.get('/User', (req, res) => {
 // If a 'search' term is provided, it returns user workouts that contain this term in their ID.
 // If no search term is provided, it returns all user workouts.
 app.get('/UsersWorkout', (req, res) => {
-  console.log("GET usersworkouts");
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM UsersWorkouts WHERE ID LIKE ?";
   db.query(query, [`%${searchTerm}%`], (err, users) => {
@@ -164,7 +158,6 @@ app.get('/UsersWorkout', (req, res) => {
 // If a 'search' term is provided, it returns associations that contain this term in their ID.
 // If no search term is provided, it returns all associations.
 app.get('/ExerciseBodyPart', (req, res) => {
-  console.log("GET ExerciseBodyPart");
   const searchTerm = req.query.search || '';
   const query = "SELECT * FROM ExerciseBodyParts WHERE ID LIKE ?";
   db.query(query, [`%${searchTerm}%`], (err, users) => {

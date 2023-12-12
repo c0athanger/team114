@@ -26,8 +26,6 @@ const App = () => {
   // get request for table attributes
   const get_attr_request = async (table_name) => {
     const response = await axios.get(`/Attribute?search=${table_name}`);
-    console.log(response.data)
-    console.log("done")
     return response.data
   }
 
@@ -36,8 +34,6 @@ const App = () => {
     let temp = {};
     for (let table of ALLTABLES) {
       temp[table] = await get_attr_request(table);
-      console.log("Attributes: ")
-      console.log(temp);
     }
 
     setAttr(temp);

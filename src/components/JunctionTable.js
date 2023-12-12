@@ -64,7 +64,6 @@ const Table = ({ attr, rt, name }) => {
 
 	// Handle Create Operations
 	const handleCreate = async (e) => {
-		console.log("req:"); console.log(e);
 		const response = await axios.post(rt, JSON.stringify(e), {
 			headers: { 'Content-Type': 'application/json' }
 		});
@@ -73,7 +72,6 @@ const Table = ({ attr, rt, name }) => {
 
 	// Handle Update Operations
 	const handleUpdate = async (e) => {
-		console.log("upreq:"); console.log(e);
 		const response = await axios.put(rt, JSON.stringify(e), {
 			headers: { 'Content-Type': 'application/json' }
 		});
@@ -91,7 +89,6 @@ const Table = ({ attr, rt, name }) => {
 
 	// Handle Read/Search Operations
 	const handleSearch = async () => {
-		console.log(`${rt}?search=${search}`)
 		const response = await axios.get(`${rt}?search=${search}`);
 		const response1 = await axios.get(fk_path[attr[attr.length - 2]]);
 		const response2 = await axios.get(fk_path[attr[attr.length - 1]]);
@@ -99,7 +96,6 @@ const Table = ({ attr, rt, name }) => {
 		parseNames(response2.data, attr[attr.length - 1], setfkTableTwo);
 		setQuery(response.data)
 		setLoad(true);
-		console.log(response.data)
 	}
 
 	// Query Table on first render
@@ -111,7 +107,6 @@ const Table = ({ attr, rt, name }) => {
 	useEffect(() => {
 		setLoad(false);
 		const handleSearchEffect = async () => {
-			console.log(`${rt}?search=${search}`)
 			const response = await axios.get(`${rt}?search=${search}`);
 			const response1 = await axios.get(fk_path[attr[attr.length - 2]]);
 			const response2 = await axios.get(fk_path[attr[attr.length - 1]]);
@@ -119,8 +114,6 @@ const Table = ({ attr, rt, name }) => {
 			parseNames(response2.data, attr[attr.length - 1], setfkTableTwo);
 			setQuery(response.data);
 			setLoad(true);
-			console.log(query)
-			console.log(response.data)
 		}
 		setIsUpdate(0); setSearch(''); setExDefault({});
 		setIsNew(true);
