@@ -3,17 +3,39 @@ import axios from '../axios';
 import { BlocksWave } from "react-svg-spinners"
 
 
+///////////////////////////////////////////////
+// Component for creating/Updating junction entities
+// Props:
+// entity -> default entity value
+// attr -> Array of table entity attributes
+// setIsUpdate -> setter for parent components isUpdate state
+// handleSubmit -> function handler for submit button
+// isEdit -> Boolean representing if operation is create or update
+// setTableLoad -> setting for load spinner boolean
+///////////////////////////////////////////////
 const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit, setTableLoad }) => {
+
+	// Define state vars
+
+	// Foreign Keys
 	const [fk1, _] = useState(attr[attr.length - 1]);
 	const [fk2, __] = useState(attr[attr.length - 2]);
+
+	// Entity attributes
 	const [attr_header, setHeader] = useState([]);
+
+	// entity state object
 	const [ent, setEnt] = useState({ ...entity });
+
+	// Lookup tables for converting FK IDs to names
 	const [fkTableOne, setfkTableOne] = useState({});
 	const [fkTableTwo, setfkTableTwo] = useState({});
+
+	// Boolean for controlling load spinner logic
 	const [isLoad, setLoad] = useState(false);
 
 
-
+	// backend paths for creating lookup tables
 	const fk_path = {
 		BodyPartID: "/BodyPart",
 		UserID: "/User",
@@ -21,7 +43,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit, setTableLo
 		ExerciseID: "/Exercise",
 	}
 
-
+	// handler for save button
 	const EditExercise = (e) => {
 		e.preventDefault();
 		setTableLoad(false);
@@ -38,12 +60,14 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit, setTableLo
 		}
 	}
 
+	// Handler for exercise attribute isUpperBody
 	const handleUpperBody = (e) => {
 		let temp = { ...ent };
 		temp['IsUpperBody'] = e.target.value;
 		setEnt(temp);
 	}
 
+	// handlers for FKs
 	const handleFK1 = (e) => {
 		let temp = { ...ent };
 		temp[fk1] = e.target.value;
@@ -56,6 +80,8 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit, setTableLo
 		setEnt(temp);
 	}
 
+	// handles logic on if submit should be disabled
+	// controls for null entries to non null attributes
 	const falsyEntity = () => {
 		for (let k of attr_header) {
 			if (!ent[k] && k != 'BodyPartID') {
@@ -65,6 +91,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit, setTableLo
 		return false
 	}
 
+	// Parsing backend query to create lookup tables
 	const parseNames = (data, fk, f) => {
 		let temp = {};
 		if (fk == "BodyPartID") temp[null] = null;
@@ -75,6 +102,7 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit, setTableLo
 		f({ ...temp })
 	}
 
+	// Handles loading get requests for lookup tables on render
 	useEffect(() => {
 		const handleGet = async () => {
 			const response1 = await axios.get(fk_path[fk1]);
@@ -103,7 +131,8 @@ const NewEntity = ({ entity, attr, setIsUpdate, handleSubmit, isEdit, setTableLo
 		handleGet().catch(console.error);
 	}, [])
 
-
+	// Conditional html rendering of entity entry form. If not finished
+	// loading will render load spinner instead
 	return (
 		<>
 			{isLoad

@@ -7,12 +7,23 @@ import JunctionTable from './components/JunctionTable'
 import axios from 'axios'
 import { BlocksWave } from "react-svg-spinners"
 
+///////////////////////////////////////////////
+// App component
+///////////////////////////////////////////////
 const App = () => {
 
+  // define state vars
+
+  // Names of all backend tables
   const ALLTABLES = ['Exercises', 'BodyParts', 'Workouts', 'Users', 'UsersWorkouts', 'WorkoutExercises', 'ExerciseBodyParts']
+
+  // Array of string of names of all table attributes
   const [all_attr, setAttr] = useState({});
+
+  // load conditional for rendering load spinner
   const [isLoad, setLoad] = useState(false);
 
+  // get request for table attributes
   const get_attr_request = async (table_name) => {
     const response = await axios.get(`/Attribute?search=${table_name}`);
     console.log(response.data)
@@ -20,6 +31,7 @@ const App = () => {
     return response.data
   }
 
+  // function for populating all_attr state var
   const make_attributes = async () => {
     let temp = {};
     for (let table of ALLTABLES) {
@@ -32,10 +44,13 @@ const App = () => {
     setLoad(true)
   }
 
+  // initial render function call to make_attributes_function
   useEffect(async () => {
     await make_attributes();
   }, [])
 
+  // conditional rendering of routing or load spinner of all attribute
+  // requests have not finished being processed
   return (
     <>
       {isLoad

@@ -2,6 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
 
+///////////////////////////////////////////////
+// Component for site navbar
+///////////////////////////////////////////////
 const NavBar = () => {
 
 	const [active, setactive] = useState(0);
@@ -18,6 +21,7 @@ const NavBar = () => {
 		}
 	}
 
+	// html to for navbar links
 	return (
 		<header className="nav_header">
 			<nav>
