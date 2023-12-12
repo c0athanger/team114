@@ -432,10 +432,10 @@ app.put('/WorkoutExercise', (req, res) => {
 // It returns a confirmation message when deleted.
 app.delete('/BodyPart', (req, res) => {
   const { BodyPartID } = req.body;
-  const deleteJunctionQuery = "DELETE FROM ExerciseBodyParts WHERE BodyPartID = ?";
-  db.query(deleteJunctionQuery, [BodyPartID], (err, result) => {
+  const updateJunctionQuery = "UPDATE ExerciseBodyParts SET BodyPartID = NULL WHERE BodyPartID = ?";
+  db.query(updateJunctionQuery, [BodyPartID], (err, result) => {
     if (err) {
-      res.status(500).send('Error deleting associated exercise in ExerciseBodyParts');
+      res.status(500).send('Error setting BodyPartID to NULL in ExerciseBodyParts');
       return;
     }
     const deleteQuery = "DELETE FROM BodyParts WHERE BodyPartID = ?";
